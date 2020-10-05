@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Postings Search";
+    Layout = "_Layout";
+}
+
+<h1>Welcome @ViewBag.customer</h1>
+<h2>Search</h2>
+<div class="text-center">
+    <form asp-action="SearchResults">
+        <input name="desc" type="text" class="form-control" />
+        &nbsp;
+        <input type="submit" value="Search" class="btn btn-primary" />
+    </form>
+</div>
+
+
