@@ -26,7 +26,7 @@ namespace MoonlightGID
         public void ConfigureServices(IServiceCollection services)
         {
             //dont forget to change this if using another system.
-            var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
+            var conn = "Server=RHBL002\\SQLEXPRESS01;Database=MoonLight;Trusted_Connection=True;";
             services.AddMemoryCache();
             services.AddSession(so =>
             {
@@ -61,7 +61,7 @@ namespace MoonlightGID
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Home}/{id?}");
             });
         }
     }

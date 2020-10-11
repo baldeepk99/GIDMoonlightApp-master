@@ -1,0 +1,436 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("../img/background.jpg");
+    /*background-position: center center;*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+/* This class will align the text at center */
+.center {
+    text-align: center;
+}
+/* This class is for making text bold*/
+.bold{
+    font-weight: bold;
+}
+/* This class will prevent line break */
+.no_wrap {
+    white-space: nowrap;
+}
+/* This class provides padding */
+.padding {
+    padding: 15px;
+}
+/* This class will make image responsive */
+.responsive {
+    width: 100%;
+    height: auto;
+}
+
+/* --- Links --- */
+a {
+    color: #fff;
+    text-decoration: none;
+}
+/* --- Social Icons --- */
+.social_icon {
+    color: #aaa;
+    margin: 0 7px;
+    transition: 100ms ease-in-out;
+}
+
+    .social_icon:hover {
+        color: #fff;
+    }
+
+
+input {
+    max-width: 200px;
+    width: 100%;
+}
+.longInput {
+    max-width: 350px;
+    width: 350px;
+}
+@media screen and (max-width: 450px) {
+    .longInput {
+        max-width: 250px;
+        width: 250px;
+    }
+}
+/* -------------------------
+------------------------------
+---------------------------*/
+.wrapper {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+}
+/* Navigation Bar */
+nav {
+    position: fixed;
+    background: rgba(255,255,255,0.95);
+    height: 75px;
+    width: 100%;
+    z-index: 1;
+    color: #fff;
+    background: rgba(0,0,0,0.7);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+}
+
+.nav_logo {
+    width: 90px;
+    height: auto;
+    padding: 3px 0 0 0;
+}
+
+.mobile_logo {
+    display: none;
+    width: 100px;
+    height: auto;
+    border-bottom: 1px solid #333;
+}
+
+.nav_links {
+    display: flex;
+    justify-content: space-between;
+}
+
+    .nav_links li, .drop_button {
+        list-style-type: none;
+        font-size: 15px;
+        margin: 0 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        cursor: pointer;
+        color: #fff;
+        transition: all 300ms ease;
+    }
+
+.dropdown {
+    float: left;
+}
+
+.dropdown, .drop_button {
+    border: none;
+    background: transparent;
+    outline: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.nav_links li a {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+}
+
+.dropdown_content {
+    position: absolute;
+    display: none;
+    max-width: 250px;
+    min-width: 150px;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #aaa;
+    transition: 300ms ease-in-out;
+}
+
+.nav_links li .dropdown .dropdown_content a {
+    display: block;
+    padding: 7px 20px;
+    z-index: 1;
+    text-align: left;
+    border-radius: 5px;
+    color: #333;
+}
+
+    .nav_links li .dropdown .dropdown_content a:nth-child(odd) {
+        background-color: #fafafa;
+    }
+
+    .nav_links li .dropdown .dropdown_content a:nth-child(even) {
+        background-color: #eee;
+    }
+
+    .nav_links li .dropdown .dropdown_content a:hover {
+        background-color: rgba(1,1,100,0.1);
+    }
+
+.drop_icon {
+    display: inline-block;
+    transition: 300ms ease;
+    color: #fff;
+}
+
+.dropdown:hover .drop_icon {
+    /*   transform: rotate(180deg);   */
+}
+
+.current {
+    filter: brightness(200%);
+    text-shadow: 5px 7px 5px #000;
+    font-weight: bold;
+}
+
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+    .burger div {
+        width: 25px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px;
+        transition: all 0.4s ease;
+    }
+
+@media screen and (max-width: 1200px) {
+    .nav-links {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 850px) {
+    .wrapper {
+        max-width: 95%;
+    }
+
+    nav {
+        height: 50px;
+    }
+
+    .navbar {
+        justify-content: space-between;
+        padding: 0 5%;
+        height: 50px;
+    }
+
+    .nav_logo {
+        width: 60px;
+        height: auto;
+    }
+
+    .nav_links {
+        position: absolute;
+        right: -5px;
+        height: 150vh;
+        z-index: 1;
+        top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 350px;
+        padding: 10px 0;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+        .nav_links li a, .drop_button {
+            text-align: left;
+            margin: 5px 40px;
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+    .dropdown_content {
+        position: relative;
+        margin-left: 50px;
+        max-width: 160px;
+        box-shadow: none;
+    }
+
+    .nav_links li .dropdown .dropdown_content a {
+        color: #000;
+        margin: 0;
+    }
+
+    .nav_links li {
+        opacity: 0; /*so that when menu is clicked, the animation looks smooth*/
+    }
+
+        .nav_links li a {
+            width: 140%;
+            text-align: left;
+        }
+
+
+    .burger {
+        display: block;
+    }
+}
+
+.nav-back-color {
+    background: rgba(0,0,0,0.7);
+}
+
+.active {
+    transform: rotate(180deg);
+}
+
+.nav-active {
+    transform: translateX(10%);
+    background-color: rgba(0,0,0,0.7);
+    transition: transform 0.3s ease;
+}
+
+@keyframes navLinkFade {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(20px);
+    }
+}
+
+.toggle .burger1 {
+    transform: rotate(-45deg) translate(-5px,6px);
+}
+
+.toggle .burger2 {
+    opacity: 0;
+}
+
+.toggle .burger3 {
+    transform: rotate(45deg) translate(-5px,-6px);
+}
+
+/*Navigation Bar End*/
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.middle {
+    margin: 15vh auto 5vh;
+}
+
+.homepageContent{
+    color: #fff;
+}
+.homepageContent h1{
+    font-size: 70px;
+    border-bottom: 3px solid #DAB700;
+}
+
+.boxContainer {
+    position: relative;
+    max-width: 1200px;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 10px;
+    padding: 5% 3%;
+}
+
+
+.gridContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    justify-items: center;
+    
+}
+.smallGrid {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.button {
+    color: #000;
+    background: #DAB700;
+    padding: 10px 25px;
+    margin: 5px auto;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    transition: 300ms ease-in-out;
+}
+button:focus{
+    outline: none;
+}
+.button:hover{
+    color: #fff;
+    box-shadow: 0 0 10px #555;
+}
+
+.verticalLine{
+    border-left:3px solid #DAB700;
+    height: 250px;
+}
+@media screen and (max-width: 1000px) {
+    .smallGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 850px) {
+    .gridContainer{
+        grid-template-columns: 1fr;
+    }
+    .smallGrid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .verticalLine{
+        opacity: 0;
+    }
+    .button{
+        font-size: 13px;
+    }
+}
+@media screen and (max-width: 650px) {
+    .homepageContent h3{
+        font-size: 20px;
+    }
+    .homepageContent h1 {
+        font-size: 50px;
+    }
+}
+@media screen and (max-width: 550px) {
+    .smallGrid{
+        grid-template-columns: 1fr;
+    }
+}
+@media screen and (max-width: 400px) {
+    .homepageContent h3 {
+        font-size: 15px;
+    }
+
+    .homepageContent h1 {
+        font-size: 40px;
+    }
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    color: #DAB700;
+    background: #333333; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #333, #000, #333); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #333, #000, #333); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}

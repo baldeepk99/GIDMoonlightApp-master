@@ -4,44 +4,60 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Get It Done</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/StyleSheet.css" />
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/pgo.png" style="width:120px; height:50px;" /></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
+    <nav>
+        <div class="wrapper navbar">
+            <div>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" class="nav_logo" />
+                </a>
+            </div>
+            <div>
+                <ul class="nav_links">
+                    <li></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="">Home</a></li>
                     @{ if (ViewBag.User == null)
                         {
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Log In |</a></li>
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">  Register</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Log In</a></li>
+
                         }
                         else
                         {
-                            <li>@ViewBag.User</li>  
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">|  Log out</a>
+                            <li><a asp-area="" asp-controller="Home" asp-action="JobSearch">Services</a></li>
+                            <li>
+                                <div class="dropdown">
+                                    <button class="drop_button" type="button">@ViewBag.User <span class="drop_icon fas fa-caret-up"></span></button>
+                                    <div class="dropdown_content">
+                                        <a asp-area="" asp-controller="Home" asp-action="">Profile</a>
+                                        <a asp-area="" asp-controller="Home" asp-action="Index">Log out</a>
+                                    </div>
+                                </div>
+                            </li>
                         }
                     }
-                    </ul>
-                </div>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+            <div class="burger">
+                <div class="burger1"></div>
+                <div class="burger2"></div>
+                <div class="burger3"></div>
+            </div>
+        </div>
+    </nav>
+    <div class="containerBackground body-content" id="navbar-collapser">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
+    <footer>
+        <div class="center">
             &copy; 2020 - Moonlight
         </div>
     </footer>
@@ -49,5 +65,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script src="~/js/JavaScript.js"></script>
 </body>
 </html>

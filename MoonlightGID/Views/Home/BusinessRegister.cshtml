@@ -5,12 +5,11 @@
     Layout = "_Layout";
 }
 
-<h1>Registration</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Registration">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="middle boxContainer">
+    <h2 class="center bold">Register as a Service Provider</h2> <br />
+    <form asp-action="Registration">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="gridContainer smallGrid">
             <div class="form-group">
                 <label asp-for="@Model.CompanyLogin" class="control-label"></label>
                 <input asp-for="@Model.CompanyLogin" class="form-control" />
@@ -36,7 +35,7 @@
                 <input asp-for="ContactNumber" class="form-control" />
                 <span asp-validation-for="ContactNumber" class="text-danger"></span>
             </div>
-           
+
             <div class="form-group">
                 <label asp-for="EmailAddress" class="control-label"></label>
                 <input asp-for="EmailAddress" class="form-control" />
@@ -47,17 +46,17 @@
                 <input asp-for="RegistrationDate" class="form-control" />
                 <span asp-validation-for="RegistrationDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input a asp-action="BusinessRegister" type="submit" value="Create" class="btn btn-primary" />
-                 
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="form-group center">
+            <input a asp-action="BusinessRegister" type="submit" value="Create" class="button" />
+
+        </div>
+    </form>
 </div>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

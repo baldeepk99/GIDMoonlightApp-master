@@ -7,76 +7,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <title>Login Page</title>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-    <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
-    <!--Custom styles-->
-    <link rel="stylesheet" type="text/css" href="~/css//stylescss.css">
 </head>
 <body>
-    <div class="text-center">
-        <h1>Welcome to</h1>
-        <img src="~/img/pgo.png" style="padding-left:5%;width:550px;height:200px;" />
 
-    </div>
-    <div class="container">
-        <div class="d-flex justify-content-center h-auto">
-            <div class="card">
-                <div class="card-header">
-                    <h3>Sign In</h3>
-                    <div class="d-flex justify-content-end social_icon">
-                        <span><i class="fab fa-facebook-square"></i></span>
-                        <span><i class="fab fa-google-plus-square"></i></span>
-                        <span><i class="fab fa-twitter-square"></i></span>
+
+    <div class="middle boxContainer gridContainer" asp-action="Index">
+        <div>
+            <form method="post">
+                <p class="text-danger">@ViewBag.errorMessage</p>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
+                    <input asp-for="@Model.UserLogin" type="text" class="form-control" placeholder="username">
+                    <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
                 </div>
-                <div class="card-body" asp-action="Index">
-                    <form method="post">
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                            </div>
-                            <h4 class="text-danger">@ViewBag.errorMessage</h4>
-                            <input asp-for="@Model.UserLogin" type="text" class="form-control" placeholder="username">
-                            <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
-                        </div>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="password" asp-for="@Model.Password" class="form-control" placeholder="password">
-                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
-                        </div>
-                        <div class="row align-items-center remember">
-                            <input type="checkbox">Remember Me
-                        </div>
-                        <div class="form-group">
-                            <input class="btn-primary float-right" type="submit" value="Login">
-                        </div>
-                    </form>
+                <div class="input-group form-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input type="password" asp-for="@Model.Password" class="form-control" placeholder="password">
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
-                <div class="card-footer">
+                @*<div class="row align-items-center remember">
+                        <input type="checkbox">Remember Me
+                    </div>*@
+                <div class="form-group">
+                    <input class="button" type="submit" value="Login">
+                </div>
+            </form>
+        </div>
+        <div class="center">
+            <div class="verticalLine centered"></div><br />
+            <h6>Don't have an account?</h6><br />
+            <a class="button" asp-action="Registration">Register as a new Customer</a><br /><br />
+            <a class="button" asp-action="BusinessRegister">Register as a Service provider</a>
+
+            @*<div class="card-footer">
                     <div class="d-flex justify-content-center links">
-                        Don't have an account?<a class="fab" asp-action="Registration">Registration for customers.</a>
+                        Want to check all accounts in the database?<a class="fab" asp-controller="CustomersMV" asp-action="Index">Click Here</a>
                     </div>
-                    <a class="fab" asp-action="BusinessRegister">Registration for Service provider</a>
-                    <div class="d-flex justify-content-center">
-                        <a href="#">Forgot your password?</a>
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex justify-content-center links">
-                            Want to check all accounts in the database?<a class="fab" asp-controller="CustomersMV" asp-action="Index">Click Here</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                </div>*@
         </div>
     </div>
 </body>

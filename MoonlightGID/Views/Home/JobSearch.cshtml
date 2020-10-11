@@ -3,14 +3,31 @@
     Layout = "_Layout";
 }
 
-<h1>Welcome @ViewBag.customer</h1>
-<h2>Search</h2>
-<div class="text-center">
-    <form asp-action="SearchResults">
-        <input name="desc" type="text" class="form-control" />
-        &nbsp;
-        <input type="submit" value="Search" class="btn btn-primary" />
-    </form>
+
+<div class="middle boxContainer gridContainer">
+    <div>
+        <h3>Search for Services</h3>
+        <form asp-action="SearchResults">
+            <div>
+                <input name="desc" type="text" class="form-control longInput" />
+                <br />
+                <input type="submit" value="Search" class="button" />
+            </div>
+        </form>
+    </div>
+    <div>
+        <br />
+        <h3>By Category</h3>
+        <form asp-action="SearchResults">
+            <div>
+                @*<input name="desc" type="text" class="form-control" />*@
+                <button class="button">Architect</button>
+                <button class="button">Electrician</button>
+                <button class="button">Painter</button>
+                <button class="button">Plumber</button>
+            </div>
+        </form>
+    </div>
 </div>
 
 

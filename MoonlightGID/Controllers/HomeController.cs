@@ -44,8 +44,15 @@ namespace MoonlightGID.Controllers
             HttpContext.Session.Clear();
             return View();
         }
-    
-      
+
+        public ViewResult Home()
+        {
+            return View();
+        }
+        public ViewResult JobSearch()
+        {
+            return View();
+        }
         public ViewResult Registration()
         {
             return View();
