@@ -1,4 +1,4 @@
-﻿@model Customers
+﻿@model Businesses
 
 @{
     ViewData["Title"] = "Home Page";
@@ -8,21 +8,19 @@
 <div class="white-block">
     <div class="row">
         <div class="col-lg-6">
-            <h4>Customer Login</h4><hr />
-            <form method="post" asp-controller="Home" asp-action="Index">
-                <label>Customer Username</label><br />
+            <h4>Business Login</h4><hr />
+            <form method="post">
+                <label>Business Username</label><br />
                 <div class="input-group form-group">
-
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
                     <h4 class="text-danger">@ViewBag.errorMessage</h4>
-                    <input asp-for="@Model.UserLogin" type="text" class="form-control" placeholder="username">
-                    <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
+                    <input asp-for="@Model.CompanyLogin" type="text" class="form-control" placeholder="username">
+                    <span asp-validation-for="@Model.CompanyLogin" class="text-danger"></span>
                 </div>
                 <label>Password</label><br />
                 <div class="input-group form-group">
-
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>

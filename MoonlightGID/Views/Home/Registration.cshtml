@@ -5,69 +5,79 @@
     Layout = "_Layout";
 }
 
-<h1>Registration</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Registration">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.UserLogin" class="control-label"></label>
-                <input asp-for="@Model.UserLogin" class="form-control" />
-                <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Password" class="control-label"></label>
-                <input type="password" asp-for="@Model.Password" class="form-control" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.FirstName" class="control-label"></label>
-                <input asp-for="@Model.FirstName" class="form-control" />
-                <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CityAddress" class="control-label"></label>
-                <input asp-for="CityAddress" class="form-control" />
-                <span asp-validation-for="CityAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ZipCode" class="control-label"></label>
-                <input asp-for="ZipCode" class="form-control" />
-                <span asp-validation-for="ZipCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthDate" class="control-label"></label>
-                <input asp-for="BirthDate" class="form-control" />
-                <span asp-validation-for="BirthDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input a asp-action="Registration" type="submit" value="Create" class="btn btn-primary" />
-                 
-            </div>
-        </form>
+<div class="white-block">
+    <h5 class="text-center">Register as Customer</h5>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Registration">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group row">
+                    <input asp-for="@Model.FirstName" class="form-control col-sm-3" placeholder="First Name" />
+                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+
+                    <input asp-for="@Model.LastName" class="form-control col-sm-3" placeholder="Last Name" required />
+                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+
+                    <input asp-for="@Model.Email" class="form-control col-sm-3" placeholder="Email Address" required />
+                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group row">
+                    <input asp-for="@Model.ContactNumber" class="form-control col-sm-3" placeholder="Contact Number" />
+                    <span asp-validation-for="@Model.ContactNumber" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+
+                    <input asp-for="@Model.UserLogin" class="form-control col-sm-3" placeholder="Username" required />
+                    <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+
+                    <input asp-for="@Model.Password" type="password" class="form-control col-sm-3" placeholder="Password" required />
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+
+                </div>
+                <div class="form-group row">
+
+                    <input asp-for="@Model.Address" class="form-control col-sm-3" placeholder="Address" required />
+                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+
+                    <input asp-for="@Model.City" class="form-control col-sm-3" placeholder="City" required />
+                    <span asp-validation-for="@Model.City" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.PostalCode" class="form-control col-sm-3" placeholder="Postal Code" required />
+                    <span asp-validation-for="@Model.PostalCode" class=" text-danger"></span>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <input asp-for="@Model.Province" class="form-control col-sm-3" placeholder="Province" required />
+                    <span asp-validation-for="@Model.Province" class="text-danger"></span>
+                    <span class="col-sm-1 "></span>
+                    <label class="col-sm-3 text-right">Birth Date</label>
+                    <span class="col-sm-1 "></span>
+                    <input asp-for="@Model.BirthDate" class="form-control col-sm-3" placeholder="Birthday" />
+                    <span asp-validation-for="@Model.BirthDate" class="text-danger"></span>
+
+                </div>
+                
+
+
+                <div class="form-group">
+                    <input a asp-action="Registration" type="submit" value="Create" class="btn btn-warning" />
+
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

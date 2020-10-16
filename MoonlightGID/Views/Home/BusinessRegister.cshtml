@@ -4,61 +4,79 @@
     ViewData["Title"] = "BusinessRegister";
     Layout = "_Layout";
 }
+<div class="white-block">
+    <h5 class="text-center">Register as Business</h5>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            
+            <form asp-action="BusinessRegister">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
 
-<h1>Registration</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Registration">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="@Model.CompanyLogin" class="control-label"></label>
-                <input asp-for="@Model.CompanyLogin" class="form-control" />
-                <span asp-validation-for="@Model.CompanyLogin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.Password" class="control-label"></label>
-                <input type="password" asp-for="@Model.Password" class="form-control" />
-                <span asp-validation-for="@Model.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="@Model.CompanyName" class="control-label"></label>
-                <input asp-for="@Model.CompanyName" class="form-control" />
-                <span asp-validation-for="@Model.CompanyName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompanyAddress" class="control-label"></label>
-                <input asp-for="CompanyAddress" class="form-control" />
-                <span asp-validation-for="CompanyAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactNumber" class="control-label"></label>
-                <input asp-for="ContactNumber" class="form-control" />
-                <span asp-validation-for="ContactNumber" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="EmailAddress" class="control-label"></label>
-                <input asp-for="EmailAddress" class="form-control" />
-                <span asp-validation-for="EmailAddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RegistrationDate" class="control-label"></label>
-                <input asp-for="RegistrationDate" class="form-control" />
-                <span asp-validation-for="RegistrationDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input a asp-action="BusinessRegister" type="submit" value="Create" class="btn btn-primary" />
-                 
-            </div>
-        </form>
+                <div class="form-group row">
+                    <input asp-for="@Model.FullName" class="form-control col-sm-3" placeholder="Full Name" />
+                    <span asp-validation-for="@Model.FullName" class="text-danger "></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.CompanyName" class="form-control col-sm-3" placeholder="Company Name " required/>
+                    <span asp-validation-for="@Model.CompanyName" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.WorkingDays" class="form-control col-sm-3" placeholder="Working Days" />
+                    <span asp-validation-for="@Model.WorkingDays" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group row">
+                    <input asp-for="@Model.ContactNumber" class="form-control col-sm-3" placeholder="Contact Number" />
+                    <span asp-validation-for="@Model.ContactNumber" class="text-danger "></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.EmailAddress" type="email" class="form-control col-sm-3" placeholder="Email Address" required/>
+                    <span asp-validation-for="@Model.EmailAddress" class="text-danger "></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.OfficeHours" class="form-control col-sm-3" placeholder="Office Hours" />
+                    <span asp-validation-for="@Model.OfficeHours" class="text-danger "></span>
+
+
+                </div>
+
+
+                <div class="form-group row">
+
+                    <input asp-for="@Model.CompanyLogin" class="form-control col-sm-3" placeholder="Username " required />
+                    <span asp-validation-for="@Model.CompanyLogin" class="text-danger" ></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.Password" class="form-control col-sm-3" type="password" placeholder="Password" required/>
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.Address" class="form-control col-sm-3" placeholder="Company Address" required/>
+                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <input asp-for="@Model.City" class="form-control col-sm-3" placeholder="City" required/>
+                    <span asp-validation-for="@Model.City" class="text-danger"></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.PostalCode" class="form-control col-sm-3" placeholder="Postal Code" required/>
+                    <span asp-validation-for="@Model.PostalCode class=" text-danger"></span>
+                    <span class="col-sm-1"></span>
+                    <input asp-for="@Model.Province" class="form-control col-sm-3" placeholder="Province" required/>
+                    <span asp-validation-for="@Model.Province" class="text-danger"></span>
+                </div>
+                
+
+
+                <div class="form-group">
+                    <input a asp-action="BusinessRegister" type="submit" value="Create" class="btn btn-warning" />
+
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+   
 </div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

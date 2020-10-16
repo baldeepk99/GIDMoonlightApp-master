@@ -1,0 +1,78 @@
+﻿
+@model JobsReviewRepository
+@{ ViewData["Title"] = "View Service";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-5">
+            <p>Service Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+                        <h5>@Model.Jobs[0].JobName</h5>
+                        <p>
+                            <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
+                            <b>Company Location: </b> @Model.Jobs[0].Company.Address <br />
+                            <b>Booking Fee     : </b> $@Model.Jobs[0].BookingFee <br />
+                            <b>Service Charge  : </b> $@Model.Jobs[0].ServiceCharge <br />
+                            <b>Working Days    : </b> @Model.Jobs[0].Company.WorkingDays <br />
+                            <b>Office Hours    : </b> @Model.Jobs[0].Company.OfficeHours <br />
+                            <b>Rating          : </b>
+                            @if (@Model.Reviews != null)
+                            {
+                                if (Model.GetRating(Model.Reviews, Model.Jobs[0].JobId) != 0)
+                                {
+                                    @Math.Round(@Model.GetRating(Model.Reviews, Model.Jobs[0].JobId), 2, MidpointRounding.AwayFromZero) }
+                                else
+                                {
+                                    <span>Not yet Rated</span>
+                                }
+                            }
+                            else
+                            {
+                                <span> Not Rated</span >
+                            }
+                            <br />
+                        </p>
+                        <hr class="bg-warning" />
+                        <fieldset>
+                            <legend>Book Service Now</legend>
+                            <form asp-action="BookService" asp-controller="Home">
+                                <input asp-for="@Model.Service.CustomerId" type="hidden" value="@ViewBag.LoggedCustomer.CustomerId" />
+                                <input asp-for="@Model.Service.JobId" type="hidden" value="@Model.Jobs[0].JobId" />
+                                <input asp-for="@Model.Jobs[0].BookingFee" type="hidden" value="@Model.Jobs[0].BookingFee" />
+                                <input asp-for="@Model.Jobs[0].ServiceCharge" type="hidden" value="@Model.Jobs[0].ServiceCharge" />
+                                <div class="form-group ">
+                                    <label>Enter Quantity</label>
+                                    <input asp-for="@Model.Service.Quantity" class="form-control" placeholder="Enter Quantity" required />
+                                </div>
+                                <div class="form-group ">
+                                    <label>Enter Date and Time</label>
+                                    <input asp-for="@Model.Service.DateOrder" class="form-control" placeholder="Date" required />
+                                </div>
+                                <input type="submit" value="Book Service" class="btn btn-warning " />
+
+                            </form>
+                        </fieldset>
+                      
+           }
+
+        </div>
+        <div class="col-1 vertical-line"> </div>
+        <div class="col-6">
+            <p>Chatting</p>
+            <hr />
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+

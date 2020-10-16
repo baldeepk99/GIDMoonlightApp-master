@@ -11,6 +11,7 @@ using MoonlightGID.Models;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
+using Microsoft.AspNetCore.Http;
 
 namespace MoonlightGID.Controllers
 {
@@ -44,8 +45,13 @@ namespace MoonlightGID.Controllers
             HttpContext.Session.Clear();
             return View();
         }
-    
-      
+        public IActionResult BusinessLogin()
+        {
+            HttpContext.Session.Clear();
+            return View();
+        }
+
+
         public ViewResult Registration()
         {
             return View();
@@ -53,6 +59,38 @@ namespace MoonlightGID.Controllers
         public ViewResult BusinessRegister()
         {
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult BusinessLogin(Businesses formResponse)
+        {
+            Businesses logCheck = null;
+            foreach (Businesses c in _context.Businesses)
+            {
+                if (c.CompanyLogin == formResponse.CompanyLogin)
+                {
+                    logCheck = _context.Businesses.Find(c.CompanyId);
+                }
+            }
+            if (logCheck == null)
+            {
+                ViewBag.errorMessage = "Wrong Username/Password";
+                return View("Index");
+            }
+            if (formResponse.Password.Equals(logCheck.Password))
+            {
+                HttpContext.Session.SetJson("Business", formResponse);
+                ViewBag.business = formResponse.CompanyName;
+                ViewBag.User = formResponse.CompanyLogin;
+                ViewBag.UserType = "business";
+                HttpContext.Session.SetString("UserType", "customer");
+                return View("BusinessHomePage");
+            }
+            else
+            {
+                ViewBag.errorMessage = "Wrong Username/Password";
+                return View("BusinessLogin");
+            }
         }
 
 
@@ -75,9 +113,16 @@ namespace MoonlightGID.Controllers
             }
             if(formResponse.Password.Equals(logCheck.Password))
             {
-                HttpContext.Session.SetJson("Customer", formResponse);
+
+                HttpContext.Session.SetJson("Customer", logCheck);
                 ViewBag.customer = formResponse.FirstName + " " + formResponse.LastName;
                 ViewBag.User = formResponse.UserLogin;
+                ViewBag.UserType = "customer";
+               
+   
+               
+                HttpContext.Session.SetString("UserType", "customer");
+                LoadCustomerViewBags();
                 return View("JobSearch");
             }
             else
@@ -86,44 +131,156 @@ namespace MoonlightGID.Controllers
                 return View("Index");
             }
         }
-
-        [HttpPost]
-        public IActionResult SearchResults(string desc)
+        public IActionResult JobSearch()
         {
 
+            /* foreach (Jobs j in _context.Jobs)
+             {
+                 jobtypes.Add(j.JobType);
+
+             }*/
+            LoadCustomerViewBags();
+            ViewBag.SelectedCategory = "";
+            ViewBag.SelectedLocation = "";
+            return View();
+        }
+
+        public IActionResult CustomerProfile()
+        {
+            LoadCustomerViewBags();
+            Customers customer = ViewBag.LoggedCustomer;
+            
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult CustomerProfile(Customers customer)
+        {
+            LoadCustomerViewBags();
+            Customers obj = _context.Customers.Find(customer.CustomerId);
+            obj.FirstName = customer.FirstName;
+            obj.LastName = customer.LastName;
+            obj.Email = customer.Email;
+            obj.ContactNumber = customer.ContactNumber;
+            obj.Address = customer.Address;
+            obj.City = customer.City;
+            obj.PostalCode = customer.PostalCode;
+            obj.Province = customer.Province;
+            obj.BirthDate = customer.BirthDate;
+            obj.Password = customer.Password;
+            
+
+            int count = _context.SaveChanges();
+            if (count >= 1)
+                ViewBag.SuccessMessage = "Profile Updated Successfully!";
+            else
+                ViewBag.SuccessMessage = "Profile Failed to Update";
+
+            return View(customer);
+        }
+        public IActionResult ViewCompany(int id)
+        {
             ViewBag.User = HttpContext.Session.GetJson<Customers>("Customer").UserLogin;
-            if (desc==null)
-            {
-                return View();
-            }
+            List<string> jobtypes = new List<string>();
+            Businesses businesses = _context.Businesses.Find(id);
+
+            ViewBag.JobTypes = jobtypes;
+            ViewBag.UserType = HttpContext.Session.GetString("UserType");
+            return View(businesses);
+        }
+
+        public IActionResult MyServices()
+        {
+            LoadCustomerViewBags();
+            Customers customer = ViewBag.LoggedCustomer;
+            var services = _context.Services.Where(c => c.CustomerId == customer.CustomerId).Distinct().ToList();
+            JobsReviewRepository jobRepo = new JobsReviewRepository();
+            jobRepo.CustomerServices = services;
+
+            return View(jobRepo);
+        }
+        public IActionResult ViewService(int id)
+        {
+            LoadCustomerViewBags();
             JobsReviewRepository jobRepo = new JobsReviewRepository();
             jobRepo.Jobs = new List<Jobs>();
-            jobRepo.Reviews = new List<Reviews>();
-            foreach (Jobs j in _context.Jobs)
-            {
-                if (j.JobType.Contains(desc))
-                {
-                    jobRepo.Jobs.Add(j);
-                }
-            }
-            if (jobRepo.Jobs.Count == 0)
-            {
-                ViewBag.errorMessage = "No jobs Found";
-            }
+            Jobs job = _context.Jobs.Find(id);
+            jobRepo.Jobs.Add(job);
+
+           
+            return View(jobRepo);
+        }
+        [HttpPost]
+        public IActionResult BookService(JobsReviewRepository jobRepo)
+        {
+            LoadCustomerViewBags();
+           
+            JobsReviewRepository newJobRepo = new JobsReviewRepository();
+            newJobRepo.Jobs = new List<Jobs>();
+            Jobs job = _context.Jobs.Find(jobRepo.Service.JobId);
+            newJobRepo.Jobs.Add(job);
+
+            Services services = new Services();
+            services.Quantity = jobRepo.Service.Quantity;
+            services.JobId = jobRepo.Service.JobId;
+            services.CustomerId = jobRepo.Service.CustomerId;
+            services.Price = (Convert.ToDecimal(jobRepo.Service.Quantity) * Convert.ToDecimal(jobRepo.Jobs[0].ServiceCharge)) + Convert.ToDecimal(jobRepo.Jobs[0].BookingFee);
+            services.DateOrder = jobRepo.Service.DateOrder;
+
+            newJobRepo.Service = services;
+
+            _context.Services.Add(services);
+            int count = _context.SaveChanges();
+            if (count >= 1)
+                ViewBag.SuccessMessage = "Service Booking Confirmed!";
             else
-            {
-                for (int i = 0; i < jobRepo.Jobs.Count(); i++)
+                ViewBag.SuccessMessage = "Failed to Book Service";
+
+
+            return View(newJobRepo);
+        }
+        [HttpPost]
+        public IActionResult JobSearch(string desc, string location)
+        {
+            ViewBag.SelectedCategory = desc;
+            ViewBag.SelectedLocation = location;
+            LoadCustomerViewBags();
+
+            
+                JobsReviewRepository jobRepo = new JobsReviewRepository();
+                jobRepo.Jobs = new List<Jobs>();
+                jobRepo.Reviews = new List<Reviews>();
+               
+                if(!String.IsNullOrEmpty(desc) && String.IsNullOrEmpty(location))
                 {
-                    foreach (Reviews r in _context.Reviews)
+                    jobRepo.Jobs = _context.Jobs.Where(c => c.JobType.ToLower().Contains(desc.ToLower())).Distinct().ToList();
+                }else if(!String.IsNullOrEmpty(desc) && !String.IsNullOrEmpty(location))
+                {
+                    jobRepo.Jobs = _context.Jobs.Where(c => c.JobType.ToLower().Contains(desc.ToLower()) && c.Company.City.ToLower().Contains(location.ToLower())).Distinct().ToList();
+                }
+                else if (String.IsNullOrEmpty(desc) && !String.IsNullOrEmpty(location))
+                {
+                    jobRepo.Jobs = _context.Jobs.Where(c => c.Company.City.ToLower().Contains(location.ToLower())).Distinct().ToList();
+                }
+                else
+                {
+                    jobRepo.Jobs = _context.Jobs.Distinct().ToList();
+                }
+
+                if (jobRepo.Jobs.Count == 0)
+                {
+                    ViewBag.InfoMessage = "No Services Available";
+                }
+                else
+                {
+                    for (int i = 0; i < jobRepo.Jobs.Count(); i++)
                     {
-                        if (r.JobId == jobRepo.Jobs[i].JobId)
-                        {
-                            jobRepo.Reviews.Add(r);
-                        }
+                        jobRepo.Reviews = _context.Reviews.Where(c => c.JobId == jobRepo.Jobs[i].JobId).Distinct().ToList();
+                      
                     }
                 }
-            }
-            return View(jobRepo);
+                return View(jobRepo);
+            
         }
 
         public IActionResult CompareJobDetails(int id)
@@ -199,87 +356,47 @@ namespace MoonlightGID.Controllers
         
         public IActionResult Registration(Customers customer)
         {
+            var existingUser = _context.Customers.Where(obj => obj.UserLogin == customer.UserLogin).FirstOrDefault();
 
-
-            /* string constr = ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
-           using (SqlConnection con = new SqlConnection(constr)) */
-            var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
-            using (SqlConnection con = new SqlConnection(conn))
+            if (existingUser == null)
             {
-               string query = "INSERT INTO Customers(UserLogin, Password, FirstName, LastName, CityAddress, ZipCode, ContactNumber, BirthDate, Email) VALUES(@UserLogin, @Password, @FirstName, @LastName, @CityAddress, @ZipCode, @ContactNumber, @BirthDate, @Email)";
-               query += " SELECT SCOPE_IDENTITY()";
-               using (SqlCommand cmd = new SqlCommand(query))
-               { 
-           
-
-            cmd.Connection = con;
-                con.Open();
-                    cmd.Parameters.AddWithValue("@UserLogin", customer.UserLogin);
-                    cmd.Parameters.AddWithValue("@Password", customer.Password);
-                    cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
-                cmd.Parameters.AddWithValue("@LastName", customer.LastName);
-                    cmd.Parameters.AddWithValue("@CityAddress", customer.CityAddress);
-                    cmd.Parameters.AddWithValue("@ZipCode", customer.ZipCode);
-                    cmd.Parameters.AddWithValue("@ContactNumber", customer.ContactNumber);
-                    cmd.Parameters.AddWithValue("@BirthDate", customer.BirthDate);
-                    cmd.Parameters.AddWithValue("@Email", customer.Email);
-                   
-                    //customer.CustomerId = Convert.ToInt32(cmd.ExecuteScalar());
-                    int rowsInserted = cmd.ExecuteNonQuery();
-
-                    if (rowsInserted == 1)
-                        ViewBag.errorMessage = " jobs Found";
-                    else
-                        ViewBag.errorMessage = "No jobs Found";
-
-                    con.Close();
-
+                
+                _context.Customers.Add(customer);
+                int count = _context.SaveChanges();
+                if (count >= 1)
+                    ViewBag.SuccessMessage = "Customer Registeration Successfull";
+                else
+                    ViewBag.SuccessMessage = "Customer Registeration Failed";
             }
+            else
+            {
+                ViewBag.ErrorMessage = "Username already exists! Please try different username";
+            }
+
+            return View(customer);
         }
- 
-        return View(customer);
-    }
 
         [HttpPost]
 
         public IActionResult BusinessRegister(Businesses businesses)
         {
+            var existingUser = _context.Businesses.Where(obj => obj.CompanyLogin == businesses.CompanyLogin).FirstOrDefault();
 
-
-            /* string constr = ConfigurationManager.ConnectionStrings["Constring"].ConnectionString;
-           using (SqlConnection con = new SqlConnection(constr)) */
-            var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
-            using (SqlConnection con = new SqlConnection(conn))
+            if(existingUser == null)
             {
-                string query = "INSERT INTO Businesses(CompanyLogin, Password, CompanyName, CompanyAddress, ContactNumber, EmailAddress, RegistrationDate) VALUES(@CompanyLogin, @Password, @CompanyName, @CompanyAddress, @ContactNumber, @EmailAddress, @RegistrationDate)";
-                query += " SELECT SCOPE_IDENTITY()";
-                using (SqlCommand cmd = new SqlCommand(query))
-                {
-
-
-                    cmd.Connection = con;
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@CompanyLogin", businesses.CompanyLogin);
-                    cmd.Parameters.AddWithValue("@Password", businesses.Password);
-                    cmd.Parameters.AddWithValue("@CompanyName", businesses.CompanyName);
-                    cmd.Parameters.AddWithValue("@CompanyAddress", businesses.CompanyAddress);
-                    cmd.Parameters.AddWithValue("@ContactNumber", businesses.ContactNumber);
-                    cmd.Parameters.AddWithValue("@EmailAddress", businesses.EmailAddress);
-                    cmd.Parameters.AddWithValue("@RegistrationDate", businesses.RegistrationDate);
-
-                    //customer.CustomerId = Convert.ToInt32(cmd.ExecuteScalar());
-                    int rowsInserted = cmd.ExecuteNonQuery();
-
-                    if (rowsInserted == 1)
-                        ViewBag.errorMessage = " jobs Found";
-                    else
-                        ViewBag.errorMessage = "No jobs Found";
-
-                    con.Close();
-
-                }
+                businesses.RegistrationDate = DateTime.Now;
+                _context.Businesses.Add(businesses);
+                int count = _context.SaveChanges();
+                if(count >= 1)
+                    ViewBag.SuccessMessage = "Business Registeration Successfull";
+                else
+                    ViewBag.SuccessMessage = "Business Registeration Failed";
             }
-
+            else
+            {
+                ViewBag.ErrorMessage = "Username already exists! Please try different username";
+            }
+          
             return View(businesses);
         }
 
@@ -302,6 +419,21 @@ namespace MoonlightGID.Controllers
                 }
             }
             return jobRepo;
+        }
+
+        public void LoadCustomerViewBags()
+        {
+            ViewBag.User = HttpContext.Session.GetJson<Customers>("Customer").UserLogin;
+            ViewBag.LoggedCustomerId = HttpContext.Session.GetJson<Customers>("Customer").CustomerId;
+            ViewBag.LoggedCustomer = HttpContext.Session.GetJson<Customers>("Customer");
+            List<string> jobtypes = new List<string>();
+            List<string> locations = new List<string>();
+            locations = _context.Businesses.Select(c => c.City).Distinct().ToList();
+            jobtypes = _context.Jobs.Select(c => c.JobType).Distinct().ToList();
+
+            ViewBag.JobTypes = jobtypes;
+            ViewBag.Locations = locations;
+            ViewBag.UserType = HttpContext.Session.GetString("UserType");
         }
     }
 }

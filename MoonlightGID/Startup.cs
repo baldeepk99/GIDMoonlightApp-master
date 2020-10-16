@@ -25,8 +25,11 @@ namespace MoonlightGID
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //dont forget to change this if using another system.
-            var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
+           
+            //var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
+
+            var conn = "Data Source=LAPTOP-N0HTAK58\\SQLEXPRESS;Initial Catalog=MoonLight;Integrated Security=True";
+
             services.AddMemoryCache();
             services.AddSession(so =>
             {

@@ -6,43 +6,107 @@
     <title>@ViewData["Title"] - Get It Done</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyBE1J5Pe_GZXBR_x9TXOv6TU5vtCSmEPW4"></script>
+    <script type="text/javascript">
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (p) {
+                var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+                var geocoder = geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': LatLng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            document.getElementById("lblAddress").innerHTML = "Your location: <b>" + results[1].formatted_address + "</b>";
+                            console.log(results[1].formatted_address);
+                        }
+                    }
+                });
+            });
+        } else {
+            alert('Geo Location feature is not supported in this browser.');
+        }
+    </script>
+  
 </head>
-<body>
+<body >
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/pgo.png" style="width:120px; height:50px;" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo.png" style="width:130px; height:50px;" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                    @{ if (ViewBag.User == null)
-                        {
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Log In |</a></li>
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">  Register</a></li>
-                        }
-                        else
-                        {
-                            <li>@ViewBag.User</li>  
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">|  Log out</a>
-                        }
-                    }
-                    </ul>
+                <div >
+                    <ul class="nav navbar-nav navbar-right">
+                        @{ if (ViewBag.User == null)
+                            {
+                    <li><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="BusinessLogin">Business Login |</a></li>
+                                    <li><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Customer Login</a></li> }
+                                                else
+                                                {
+                                                    if (ViewBag.UserType == "customer")
+                                                    {
+
+                                                        <li><a class="text-light" asp-area="" asp-controller="Home" asp-action="JobSearch"> Home |&nbsp;</a></li>
+                                                        <li><a class="text-light" asp-area="" asp-controller="Home" asp-action="MyServices">&nbsp;&nbsp;My Services |</a></li>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                    }
+
+
+
+                                    <li class="text-light"><a class=" text-light" asp-area="" asp-controller="Home" asp-action="CustomerProfile">&nbsp;&nbsp;@ViewBag.User &nbsp;&nbsp;</a></li>
+                                    <li class="text-light"><a class=" text-light" asp-area="" asp-controller="Home" asp-action="Index"> |&nbsp;&nbsp;Log out</a></li>
+                                    }
+                                    }
+                                </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">
+            @if (ViewBag.SuccessMessage != null)
+            {
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong>
+            @ViewBag.SuccessMessage
+        </div>}
+            @if (ViewBag.ErrorMessage != null)
+            {
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>
+            @ViewBag.ErrorMessage
+        </div>}
+            @if (ViewBag.InfoMessage != null)
+            {
+        <div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Information!</strong>
+            @ViewBag.InfoMessage
+        </div>}
+            @if (ViewBag.WarningMessage != null)
+            {
+        <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Warning!</strong>
+            @ViewBag.WarningMessage
+        </div>}
             @RenderBody()
         </main>
+       
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer bg-dark  text-muted">
         <div class="container">
-            &copy; 2020 - Moonlight
+            <span class="text-light">&copy; 2020 - Moonlight </span>
+            <span id="lblAddress" class="text-light"></span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

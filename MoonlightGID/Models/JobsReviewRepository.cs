@@ -7,8 +7,13 @@ namespace MoonlightGID.Models
 {
     public class JobsReviewRepository
     {
+        
         public List<Reviews> Reviews { get; set; }
         public List<Jobs> Jobs { get; set; }
+
+        public List<Services> CustomerServices { get; set; }
+
+        public Services Service { get; set; }
 
         public List<int>ToCompare { get; set; }
 
@@ -29,8 +34,14 @@ namespace MoonlightGID.Models
                     continue;
                 }
             }
-            result = total / count;
+            if(count <= 0)
+               result = 0;
+            else
+                result = total / count;
+
             return result;
         }
+
+       
     }
 }
