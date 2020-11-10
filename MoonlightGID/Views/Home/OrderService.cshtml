@@ -1,0 +1,59 @@
+﻿@using Microsoft.AspNetCore.Http
+@model JobsReviewRepository
+@{ ViewData["Title"] = "Book Service";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="overflow-auto" style="max-width: 100%; max-height: 650px;">
+                <h5>@Model.Jobs[0].JobName</h5>
+                <hr />
+                <form asp-action="BookService" asp-controller="Hone">
+
+                    <input asp-for="@Model.Jobs[0].BookingFee" type="hidden" value="@Model.Jobs[0].BookingFee" />
+                    <input asp-for="@Model.Service.JobId" type="hidden" value="@Model.Jobs[0].JobId" />
+                    <input asp-for="@Model.Service.CustomerId" type="hidden" value="@Context.Session.GetString("LoggedUserId")" />
+                   <div asp-validation-summary="ModelOnly" class="text-danger">
+            </div>
+            <div class="form-group">
+                <label>Where do you need this Service?</label>
+                <input asp-for="@Model.Service.ServiceLocation" class="form-control " placeholder="Where do you need this Service?" value="@Model.Service.ServiceLocation" required />
+            </div>
+            <div class="form-group">
+                <label>Do you have any Time restrictions?</label>
+                <textarea asp-for="@Model.Service.TimeDescription" class="form-control " placeholder="Do you have any Time restrictions?" value="@Model.Service.TimeDescription"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Any other detail you need to provide?</label>
+                <textarea asp-for="@Model.Service.Description" class="form-control " placeholder="Any other detail you need to provide?" value="@Model.Service.Description"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>When do you need this Service (Time and Day)?</label>
+                <select asp-for="@Model.Service.DateOrder" class="form-control ">
+                    @foreach (var avail in Model.ServiceAvailability)
+                    {
+        <option value="@avail">@avail</option>}
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <input a asp-action="BookService" asp-controller="Home" type="submit" value="Book Now" class="btn btn-warning" />
+
+            </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+</div>
+
+
+

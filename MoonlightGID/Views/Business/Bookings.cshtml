@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<MoonlightGID.Models.Services>
+@{ ViewData["Title"] = "Business Services";
+    Layout = "_Layout"; }
+<br />
+
+<div class="white-block">
+    <div class="row">
+        <div class="col-lg-12">
+            <p>Bookings</p>
+            <hr class="bg-warning" />
+            <div class="overflow-auto p-2 flex-fill bd-highlight" style="max-width: 100%; max-height: 500px;">
+            
+                <table class="table table-hover table-responsive" width="100%">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Customer Email</th>
+                            <th>Customer Phone</th>
+                            <th>Service Name</th>
+                            <th>Job Type</th>
+                            <th>Service Location</th>
+                            <th>Service Date</th>
+                            <th>Time Restriction Details</th>
+                            <th>Other Details</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            @foreach (var service in Model)
+                            {
+                        <tr>
+                            <td class="text-wrap">@service.Customer.FirstName @service.Customer.LastName</td>
+                            <td class="text-wrap">@service.Customer.Email</td>
+                            <td class="text-wrap">@service.Customer.ContactNumber</td>
+                            <td class="text-wrap">@service.Job.JobName</td>
+                            <td class="text-wrap">@service.Job.JobType</td>
+                            <td class="text-wrap">@service.ServiceLocation</td>
+                            <td class="text-wrap">@service.DateOrder</td>
+                            <td class="text-wrap">@service.TimeDescription</td>
+                            <td class="text-wrap">@service.Description</td>
+
+                        </tr>
+                            }
+                        }
+
+                    </tbody>
+                   
+                </table>
+            </div>
+        </div>
+      
+    </div>
+</div>
+
+
+

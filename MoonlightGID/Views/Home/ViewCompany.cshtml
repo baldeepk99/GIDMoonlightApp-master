@@ -1,0 +1,43 @@
+﻿
+@model Businesses
+@{ ViewData["Title"] = "Business Details";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-6  vertical-line">
+            <p>Business Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+                <h5>@Model.CompanyName</h5>
+                <p>
+                    <b>Service Provider: </b> @Model.FullName <br />
+                    <b>Company Location: </b> @Model.Address <br />
+                  @*  <b>Booking Fee     : </b> @Model.BookingFee <br />
+                    <b>Service Charge  : </b> @Model.ServiceCharge <br />*@
+                    <b>Working Days    : </b> @Model.WorkingDays <br />
+                    <b>Office Hours    : </b> @Model.OfficeHours <br />
+                    <b>Rating          : </b> @Model.Reviews.Count <br />
+
+                </p>
+            }
+
+        </div>
+       
+        <div class="col-6">
+            <p>Chatting</p>
+            <hr />
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+
