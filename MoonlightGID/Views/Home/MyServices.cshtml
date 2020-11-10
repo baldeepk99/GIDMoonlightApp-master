@@ -1,0 +1,51 @@
+﻿
+@model MoonlightGID.Models.JobsReviewRepository
+@{ ViewData["Title"] = "My Services";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-12">
+            <p>My Booked Services Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+                <div class="overflow-auto" style="max-width: 100%; max-height: 500px;">
+                    <table class="table table-hover" style="width:100%">
+                        <thead class="thead-dark">
+                            <tr>
+                                <td>Service Number</td>
+                                <td>Service Provider</td>
+                                <td>Service Name</td>
+                                <td>Date Ordered</td>
+                                <td>Total Payment</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CustomerServices)
+                            {
+                            <tr>
+                                <td>@item.ServiceId</td>
+                                <td>@item.Job.Company.CompanyName</td>
+                                <td>@item.Job.JobName</td>
+                                <td>@item.DateOrder</td>
+                                <td>$@item.Price</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+        </div>
+      
+        
+    </div>
+
+
+</div>
+
+
+

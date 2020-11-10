@@ -62,18 +62,12 @@ namespace MoonlightGID.Models
                 entity.HasKey(e => e.JobId)
                     .HasName("PK__Jobs__056690C2EB07A580");
 
-                entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Jobs)
                     .HasForeignKey(d => d.CompanyId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Jobs_Businesses");
-
-                entity.HasOne(d => d.Service)
-                    .WithMany(p => p.Jobs)
-                    .HasForeignKey(d => d.ServiceId)
-                    .HasConstraintName("FK_Jobs_Services");
             });
 
             modelBuilder.Entity<Reviews>(entity =>

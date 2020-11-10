@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,29 +7,70 @@
     <title>@ViewData["Title"] - Get It Done</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?&key=AIzaSyBE1J5Pe_GZXBR_x9TXOv6TU5vtCSmEPW4"></script>
+    <script type="text/javascript">
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (p) {
+                var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+                var geocoder = geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': LatLng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            document.getElementById("lblAddress").innerHTML = "Your location: <b>" + results[1].formatted_address + "</b>";
+                            console.log(results[1].formatted_address);
+                        }
+                    }
+                });
+            });
+        } else {
+            alert('Geo Location feature is not supported in this browser.');
+        }
+    </script>
+  
 </head>
-<body>
+<body >
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-dark border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/pgo.png" style="width:120px; height:50px;" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <img src="~/img/logo.png" style="width:130px; height:50px;" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                    @{ if (ViewBag.User == null)
-                        {
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Log In |</a></li>
-                            <li><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Register">  Register</a></li>
-                        }
-                        else
-                        {
-                            <li>@ViewBag.User</li>  
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">|  Log out</a>
-                        }
-                    }
+                <div >
+                    <ul class="nav navbar-nav navbar-right">
+                        @{ 
+                            if (Context.Session.GetString("UserLogin") == null)
+                            {
+                                    <li><a class="nav-link text-light" asp-area="" asp-controller="Business" asp-action="Index">Business Login |</a></li>
+                                    <li><a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Customer Login</a></li>
+                            }
+                            else
+                            {
+                                if (Context.Session.GetString("UserType") == "customer")
+                                {
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Home" asp-action="JobSearch"> Home</a></li>
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Home" asp-action="MyServices">My Services</a></li>
+                                        <li><a class=" text-light btn btn-link text-uppercase" asp-area="" asp-controller="Home" asp-action="CustomerProfile">@Context.Session.GetString("UserLogin").ToUpper()</a></li>
+                                }
+                                else if (Context.Session.GetString("UserType") == "business")
+                                {
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Business" asp-action="Home"> Home </a></li>
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Business" asp-action="AddService">Add Services</a></li>
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Business" asp-action="Bookings">Bookings</a></li>
+                                        <li><a class="text-light btn btn-link text-uppercase" asp-area="" asp-controller="Business" asp-action="BusinessProfile">
+                                            @Context.Session.GetString("UserLogin").ToUpper()</a></li> 
+                                }
+                                else 
+                                { 
+                                }
+                                 <li><a class=" text-light btn btn-outline-danger text-uppercase" asp-area="" asp-controller="Home" asp-action="Index">Log out</a></li> 
+                              }
+
+                                
+                                
+                           } }
                     </ul>
                 </div>
             </div>
@@ -36,13 +78,46 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @if (ViewBag.SuccessMessage != null)
+            {
+        <div class="alert alert-success">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Success!</strong>
+            @ViewBag.SuccessMessage
+        </div>}
+            @if (ViewBag.ErrorMessage != null)
+            {
+        <div class="alert alert-danger">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!</strong>
+            @ViewBag.ErrorMessage
+        </div>}
+            @if (ViewBag.InfoMessage != null)
+            {
+        <div class="alert alert-info">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Information!</strong>
+            @ViewBag.InfoMessage
+        </div>}
+            @if (ViewBag.WarningMessage != null)
+            {
+        <div class="alert alert-warning">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Warning!</strong>
+            @ViewBag.WarningMessage
+        </div>}
+     
+             @RenderBody()
+            
+
         </main>
+       
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer bg-dark  text-muted">
         <div class="container">
-            &copy; 2020 - Moonlight
+            <span class="text-light">&copy; 2020 - Moonlight </span>
+            <span id="lblAddress" class="text-light"></span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

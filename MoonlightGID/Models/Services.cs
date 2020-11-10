@@ -7,16 +7,18 @@ namespace MoonlightGID.Models
     {
         public Services()
         {
-            Jobs = new HashSet<Jobs>();
+           
         }
-
         public int ServiceId { get; set; }
+        public int JobId { get; set; }
         public int CustomerId { get; set; }
-        public int Quantity { get; set; }
-        public int Price { get; set; }
-        public DateTime DateOrder { get; set; }
+        public decimal Price { get; set; }
+        public string TimeDescription { get; set; }
+        public string Description { get; set; }
+        public string DateOrder { get; set; }
+        public string ServiceLocation { get; set; }
 
         public virtual Customers Customer { get; set; }
-        public virtual ICollection<Jobs> Jobs { get; set; }
+        public virtual Jobs Job { get; set; }
     }
 }

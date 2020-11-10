@@ -1,0 +1,75 @@
+﻿
+@model JobsReviewRepository
+@{ ViewData["Title"] = "View Service";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-5">
+            <p>Service Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+<h5>@Model.Jobs[0].JobName</h5>
+                <p>
+                    <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
+                    <b>Company Location: </b> @Model.Jobs[0].Company.Address <br />
+                    <b>Booking Fee     : </b> $@Model.Jobs[0].BookingFee <br />
+                    <b>Service Charge  : </b> $@Model.Jobs[0].ServiceCharge <br />
+                    <b>Working Days    : </b> @Model.Jobs[0].Company.WorkingDays <br />
+                    <b>Office Hours    : </b> @Model.Jobs[0].Company.OfficeHours <br />
+                    <b>Rating          : </b>
+                    @if (@Model.Reviews != null)
+                    {
+                        if (Model.GetRating(Model.Reviews, Model.Jobs[0].JobId) != 0)
+                        {
+    @Math.Round(@Model.GetRating(Model.Reviews, Model.Jobs[0].JobId), 2, MidpointRounding.AwayFromZero) }
+else
+{
+<span>Not yet Rated</span> }
+}
+else
+{
+<span> Not Rated</span>}
+                    <br />
+                </p>
+                                <hr class="bg-warning" />
+                                                <a class="btn btn-outline-warning btn-sm" asp-controller="Home" asp-action="OrderService"
+                                                   asp-route-id="@Model.Jobs[0].JobId">Book Service</a>}
+
+        </div>
+        <div class="col-1 vertical-line"> </div>
+        <div class="col-6">
+            <div class="overflow-auto" style="max-width: 100%; max-height: 500px;">
+                <p>Reviews</p>
+                <hr />
+                <ul class="list-group">
+                    @if (@Model.Jobs[0].Reviews != null)
+                    {
+        @foreach (var review in Model.Jobs[0].Reviews)
+        {
+<li class="list-group-item">
+    @review.ReviewContent
+    <i class="fa fa-star"></i><span class="font-weight-bold float-right">@review.Rating</span>
+</li>} }
+    else
+    {
+<li class="list-group-item"> No reviews yet</li>
+}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/@Model.Jobs[0].Company.ChatLink"></script>
+<!-- Start of HubSpot Embed Code BALDEEP-->
+@*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706185.js"></script>*@
+<!-- Start of HubSpot Embed Code ROBERT-->
+@*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706378.js"></script>*@
+<!-- Start of HubSpot Embed Code RAJWINDER-->
+@*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706360.js"></script>*@
