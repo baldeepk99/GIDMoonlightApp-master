@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Http
+@model JobsReviewRepository
+@{ ViewData["Title"] = "View Service";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-5  vertical-line">
+            <p>Service Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+                <h5>@Model.Jobs[0].JobName</h5>
+                <p>
+                    <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
+                    <b>Company Location: </b> @Model.Jobs[0].Company.Address <br />
+                    <b>Booking Fee     : </b> $@Model.Jobs[0].BookingFee <br />
+                    <b>Service Charge  : </b> $@Model.Jobs[0].ServiceCharge <br />
+                    <b>Working Days    : </b> @Model.Jobs[0].Company.WorkingDays <br />
+                    <b>Office Hours    : </b> @Model.Jobs[0].Company.OfficeHours <br />
+                    <b>Rating          : </b>
+                    @if (@Model.Reviews != null)
+                    {
+                        if (Model.GetRating(Model.Reviews, Model.Jobs[0].JobId) != 0)
+                        {
+                            @Math.Round(@Model.GetRating(Model.Reviews, Model.Jobs[0].JobId), 2, MidpointRounding.AwayFromZero) }
+                        else
+                        {
+                            <span>Not yet Rated</span> }
+                    }
+                    else
+                    {
+                        <span> Not Rated</span>}
+                    <br />
+                </p>}
+
+        </div>
+
+        <div class="col-7">
+            <div class="overflow-auto" style="max-width: 100%; max-height: 500px;">
+                <p>Advance Payment</p>
+                <hr />
+                <p class="text-wrap"> Your Service has been booked for <b>@Model.Jobs[0].JobType on @Model.Service.DateOrder</b></p>
+                <p class="text-wrap">Please proceed for advance payment if you wish.</p>
+                <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+                    <input type="hidden" name="cmd" value="_s-xclick">
+                    <input type="hidden" name="hosted_button_id" value="SR2RXZAK72Q4L">
+                    <input type="hidden" name="notify_url" value="http://@Context.Request.Host/Home " />
+                    <input type="hidden" name="return" value="http://@Context.Request.Host/Home/BookService">
+                    <input type="hidden" name="amount" value="@Model.Service.Price">
+                    <input type="hidden" name="email" value="@Context.Session.GetString("LoggedUserEmail")">
+                    <input type="hidden" name="first_name" value="@Context.Session.GetString("LoggedUserFirstName")">
+                    <input type="hidden" name="last_name" value="@Context.Session.GetString("LoggedUserLastName")">
+                    <input type="hidden" name="address1" value="@Context.Session.GetString("LoggedUserAddress")">
+                    <input type="hidden" name="city" value="@Context.Session.GetString("LoggedUserCity")">
+                    <input type="hidden" name="state" value="@Context.Session.GetString("LoggedUserProvince")">
+                    <input type="hidden" name="zip" value="@Context.Session.GetString("LoggedUserPostalCode")">
+                    <input type="hidden" name="currency_code" value="CAD">
+                    <input type="hidden" name="country" value="Canada">
+                    <table>
+                        <tr><td><input type="hidden" name="on0" value="Your Full Name">Your Full Name</td></tr>
+                        <tr><td><input type="text" name="os0" maxlength="200" value="@Context.Session.GetString("LoggedUserFirstName") @Context.Session.GetString("LoggedUserLastName")"></td></tr>
+                        <tr><td><input type="hidden" name="on1" value="Your Email">Your Email</td></tr>
+                        <tr><td><input type="text" name="os1" maxlength="200" value="@Context.Session.GetString("LoggedUserEmail")"></td></tr>
+                        <tr><td><hr class="bg-warning" /></td></tr>
+                        <tr>
+                            <td>Your Total: $@Model.Jobs[0].ServiceCharge (including all charges)</td>
+                        </tr>
+                    </table>
+                    <hr />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                    <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                </form>
+
+
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+

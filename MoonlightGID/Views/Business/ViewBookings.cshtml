@@ -1,0 +1,82 @@
+﻿@model JobsReviewRepository
+@{
+    ViewData["Title"] = "ViewBookings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-lg-6  vertical-line">
+            <p>Service Details</p>
+            <hr />
+
+            @if (Model != null)
+            {
+                <h5>@Model.CustomerServices[0].Job.JobName</h5>
+                <p>
+                    @*<b>Customer Name   : </b> @Model.CustomerServices[0].Customer.FirstName @Model.CustomerServices[0].Customer.LastName <br />
+        <b>Customer Email  : </b> @Model.CustomerServices[0].Customer.Email <br />
+        <b>Customer Phone  : </b> $@Model.CustomerServices[0].Customer.ContactNumber <br />*@
+                    <b>Job Type        : </b> @Model.CustomerServices[0].Job.JobType <br />
+                    <b>Location        : </b> <span id="userLocation">@Model.CustomerServices[0].ServiceLocation</span> <br />
+                    <b>Booked Date     : </b> @Model.CustomerServices[0].DateOrder <br />
+                    <b>Time Restriction: </b> @Model.CustomerServices[0].TimeDescription <br />
+                    <b>Other Details   : </b> @Model.CustomerServices[0].Description <br />
+                </p>
+            }
+        </div>
+
+        <div class="col-lg-6">
+            <p onclick="viewMap()">Show Map</p>
+            <hr />
+            <div id="mapid" style="height: 50vh; min-height: 300px;"></div>
+        </div>
+    </div>
+
+</div>
+<script>
+    window.onload = viewMap();
+    function viewMap() {
+        //// Getting Lat and Long coordinates location of device
+        var slat, slong, dlat, dlong, userInfo;
+
+
+
+
+        const success = (position) => {
+            slat = position.coords.latitude;
+            slong = position.coords.longitude;
+            // Creating a map view with lat, long and zoom level.
+            var map = L.map('mapid');
+            // Creating tiles and attribution inorder to use OSM tiles
+            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // Storing the user location in a variable
+            var userLocation = document.getElementById('userLocation').textContent;
+
+            const key = "f33544a35dd049b192f5489f7d26d094";
+            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${userLocation}&key=${key}`)
+                .then(response => response.json())
+                .then(data => {
+                    userInfo = data;
+                    dlat = userInfo.results[0].geometry.lat;
+                    dlong = userInfo.results[0].geometry.lng;
+                    // Adding Routes to the map
+                    L.Routing.control({
+                        waypoints: [
+                            L.latLng(slat, slong),
+                            L.latLng(dlat, dlong)
+                        ]
+                    }).addTo(map);
+
+                });
+
+        }
+        navigator.geolocation.getCurrentPosition(success, console.log);
+
+    }
+
+</script>

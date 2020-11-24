@@ -26,11 +26,16 @@ namespace MoonlightGID
         public void ConfigureServices(IServiceCollection services)
         {
             //dont forget to change this if using another system.
-            var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
+            //var conn = "Server=L110022;Database=MoonLight;Trusted_connection=true";
+            //var conn = "Data Source=RHBL002\\SQLEXPRESS01;Initial Catalog=MoonLight;Integrated Security=True";
+
+            var conn = "Data Source=getitdone2020.database.windows.net;Initial Catalog=MoonLight;User ID=git;Password=College2020;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            //var conn = "Data Source=LAPTOP-N0HTAK58\\SQLEXPRESS;Initial Catalog=MoonLight;Integrated Security=True";
             services.AddMemoryCache();
             services.AddSession(so =>
             {
-                so.IdleTimeout = TimeSpan.FromSeconds(60);
+                so.IdleTimeout = TimeSpan.FromMinutes(60);
+            
             });
             services.AddDbContext<MoonLightContext>(options => options.UseSqlServer(conn));
             services.AddControllersWithViews();
@@ -56,7 +61,7 @@ namespace MoonlightGID
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

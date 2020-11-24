@@ -1,0 +1,98 @@
+﻿
+@model MoonlightGID.Models.Customers
+@{ ViewData["Title"] = "My Profile";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-12 mb-2">
+            <p>Update Profile</p>
+            <hr />
+            <div style="padding:20px;">
+                <form asp-action="CustomerProfile" asp-controller="Home">
+                    <input asp-for="@Model.CustomerId" type="hidden" value="@Model.CustomerId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <div class=" col-sm-4">
+                            <label>First Name: </label><br />
+                            <input asp-for="@Model.FirstName" class="form-control" placeholder="First Name" value="@Model.FirstName" />
+                            <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>Last Name: </label><br />
+                            <input asp-for="@Model.LastName" class="form-control" placeholder="Last Name" value="@Model.LastName" required />
+                            <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>Email Address: </label><br />
+                            <input asp-for="@Model.Email" class="form-control" placeholder="Email Address" value="@Model.Email" required />
+                            <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class=" col-sm-4">
+                            <label>Contact Number: </label><br />
+                            <input asp-for="@Model.ContactNumber" class="form-control" placeholder="Contact Number" value="@Model.ContactNumber" />
+                            <span asp-validation-for="@Model.ContactNumber" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>UserName: </label><br />
+                            <input asp-for="@Model.UserLogin" class="form-control" placeholder="Username" value="@Model.UserLogin" readonly required />
+                            <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>Password: </label><br />
+                            <input asp-for="@Model.Password" type="password" class="form-control" placeholder="Password" value="@Model.Password" required />
+                            <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class=" col-sm-4">
+                            <label>Address: </label><br />
+                            <input asp-for="@Model.Address" class="form-control" placeholder="Address" value="@Model.Address" required />
+                            <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>City: </label><br />
+                            <input asp-for="@Model.City" class="form-control" placeholder="City" value="@Model.City" required />
+                            <span asp-validation-for="@Model.City" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>Postal Code: </label><br />
+                            <input asp-for="@Model.PostalCode" class="form-control" placeholder="Postal Code" value="@Model.PostalCode" required />
+                            <span asp-validation-for="@Model.PostalCode" class=" text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class=" col-sm-4">
+                            <label>Province: </label><br />
+                            <input asp-for="@Model.Province" class="form-control" placeholder="Province" value="@Model.Province" required />
+                            <span asp-validation-for="@Model.Province" class="text-danger"></span>
+                        </div>
+                        <div class=" col-sm-4">
+                            <label>Birthdate: </label><br />
+                            <input asp-for="@Model.BirthDate" class="form-control" placeholder="Birthday" value="@Model.BirthDate" />
+                            <span asp-validation-for="@Model.BirthDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <input a asp-action="CustomerProfile" asp-controller="Home" type="submit" value="Update Profile" class="btn btn-warning" />
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+

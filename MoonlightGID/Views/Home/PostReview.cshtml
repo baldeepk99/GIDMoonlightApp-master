@@ -1,0 +1,74 @@
+﻿
+@model JobsReviewRepository
+@{ ViewData["Title"] = "Post Review";
+    Layout = "_Layout"; }
+<br />
+<br />
+<div class="white-block">
+    <div class="row">
+        <div class="col-6  vertical-line">
+
+            <p>
+                Post Review
+                <a class="btn btn-warning btn-sm float-right" asp-controller="Home" asp-action="ViewService" asp-route-id="@Model.Jobs[0].JobId">Back</a>
+            </p>
+
+            <hr />
+            <p><b>Company: </b>@Model.Jobs[0].Company.CompanyName</p>
+            <form asp-action="PostReview" asp-controller="Home">
+                <div>
+                    <input type="hidden" name="JobId" value="@Model.Jobs[0].JobId" />
+                    <input type="hidden" name="CompanyId" value="@Model.Jobs[0].Company.CompanyId" />
+                    <div class="form-group">
+                        <label>Give your reviews</label>
+                        <textarea name="review" type="text" class="form-control" placeholder="Give your reviews" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <select name="rating" class="form-control">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Post" class="btn btn-warning " />
+                    </div>
+
+                </div>
+            </form>
+
+
+        </div>
+       
+        <div class="col-6">
+            <p>Reviews</p><hr />
+            <div class="overflow-auto" style="max-width: 100%; max-height: 350px;">
+                
+               
+                <ul class="list-group">
+                    @if (@Model.Jobs[0].Reviews != null)
+                    {
+                        @foreach (var review in Model.Jobs[0].Reviews)
+                        {
+                        <li class="list-group-item">
+                            <span class="text-wrap"> @review.ReviewContent</span>
+                            <i class="fa fa-star"></i><span class="font-weight-bold float-right">@review.Rating</span>
+                        </li>
+                        } 
+                    }
+                    else
+                    {
+                        <li class="list-group-item"> No reviews yet</li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/@Model.Jobs[0].Company.ChatLink"></script>

@@ -1,4 +1,4 @@
-﻿@model Customers
+﻿@model Businesses
 
 @{
     ViewData["Title"] = "Home Page";
@@ -7,26 +7,24 @@
 <br /><br />
 <div class="white-block">
     <div class="row">
-        <div class="col-lg-6  vertical-line">
-            <h4>Customer Login</h4><hr />
-            <form method="post" asp-controller="Home" asp-action="Index">
-                <label>Customer Username</label><br />
+        <div class="col-lg-6   vertical-line">
+            <h4>Business Login</h4><hr />
+            <form method="post" asp-controller="Business" asp-action="Index">
+                <label>Business Username</label><br />
                 <div class="input-group form-group">
-
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                     </div>
-                    <input asp-for="@Model.UserLogin" type="text" class="form-control" placeholder="username">
-                   <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
+                    <input asp-for="@Model.CompanyLogin" type="text" class="form-control" placeholder="username">
+                    <span asp-validation-for="@Model.CompanyLogin" class="text-danger"></span>
                 </div>
                 <label>Password</label><br />
                 <div class="input-group form-group">
-
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
                     <input type="password" asp-for="@Model.Password" class="form-control" placeholder="password">
-                   <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
@@ -34,12 +32,12 @@
                 </div>
             </form>
         </div>
-      
+       
         <div class="col-lg-6">
             <br />
             <h4 class="text-center">Don't have an account?</h4><br />
-            <a asp-controller="Home" asp-action="Registration" class="btn btn-warning btn-block">Registration as a Customers.</a>
-            <a  asp-controller="Business" asp-action="Registration" class="btn btn-warning btn-block">Registration as a Business.</a>
+            <a asp-action="Registration" asp-controller="Home" class="btn btn-warning btn-block">Registration as a Customers.</a>
+            <a asp-action="Registration" asp-controller="Business" class="btn btn-warning btn-block">Registration as a Business.</a>
 
 
         </div>
