@@ -45,8 +45,6 @@ namespace MoonlightGID.Models
             {
                 entity.HasKey(e => e.CustomerId);
 
-                entity.Property(e => e.BirthDate).HasColumnType("date");
-
                 entity.Property(e => e.ContactNumber)
                     .IsRequired()
                     .HasMaxLength(50);

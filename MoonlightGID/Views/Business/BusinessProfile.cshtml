@@ -27,7 +27,7 @@
                         </div>
                         <div class=" col-sm-4">
                             <label>Contact Number: </label><br />
-                            <input asp-for="@Model.ContactNumber" class="form-control " placeholder="Contact Number" value="@Model.ContactNumber" />
+                            <input asp-for="@Model.ContactNumber" type="text" class="form-control " placeholder="Contact Number" value="@Model.ContactNumber" />
                             <span asp-validation-for="@Model.ContactNumber" class="text-danger"></span>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="form-group row">
                         <div class=" col-sm-4">
                             <label>Email Address: </label><br />
-                            <input asp-for="@Model.EmailAddress" class="form-control " placeholder="Email address" value="@Model.EmailAddress" required />
+                            <input asp-for="@Model.EmailAddress" type="email" class="form-control " placeholder="Email address" value="@Model.EmailAddress" required />
                             <span asp-validation-for="@Model.EmailAddress" class="text-danger"></span>
                         </div>
                         <div class=" col-sm-4">
@@ -52,13 +52,28 @@
 
                     <div class="form-group row">
                         <div class=" col-sm-4">
-                            <label>Postal Code: </label><br />
+                            <label>City: </label><br />
                             <input asp-for="@Model.PostalCode" class="form-control" placeholder="Postal Code" value="@Model.PostalCode" required />
-                            <span asp-validation-for="@Model.PostalCode" class=" text-danger"></span>
+                            <span asp-validation-for="@Model.PostalCode" class="text-danger"></span>
                         </div>
                         <div class=" col-sm-4">
                             <label>Province: </label><br />
-                            <input asp-for="@Model.Province" class="form-control " placeholder="Province" value="@Model.Province" required />
+                            <select asp-for="@Model.Province" class="form-control" required>
+                                <option selected disabled>Select a Province</option>
+                                <option value="Alberta">Alberta</option>
+                                <option value="British Columbia">British Columbia</option>
+                                <option value="Manitoba">Manitoba</option>
+                                <option value="New Brunswick">New Brunswick</option>
+                                <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                                <option value="Northwest Territories">Northwest Territories</option>
+                                <option value="Nova Scotia">Nova Scotia</option>
+                                <option value="Nunavut">Nunavut</option>
+                                <option value="Ontario">Ontario</option>
+                                <option value="Prince Edward Island">Prince Edward Island</option>
+                                <option value="Quebec">Quebec</option>
+                                <option value="Saskatchewan">Saskatchewan</option>
+                                <option value="Yukon">Yukon</option>
+                            </select>
                             <span asp-validation-for="@Model.Province" class="text-danger"></span>
                         </div>
                         <div class=" col-sm-4">
@@ -70,8 +85,8 @@
 
                     <div class="form-group row">
                         <div class=" col-sm-4">
-                            <label>Working Hours: </label><br />
-                            <input asp-for="@Model.WorkingDays" class="form-control" placeholder="Working Hours" value="@Model.WorkingDays" required />
+                            <label>Working Days: </label><br />
+                            <input asp-for="@Model.WorkingDays" class="form-control" placeholder="Working Days" value="@Model.WorkingDays" required />
                             <span asp-validation-for="@Model.WorkingDays" class="text-danger"></span>
                         </div>
                         <div class=" col-sm-4">
@@ -87,6 +102,12 @@
                     </div>
 
                     <div class="form-group">
+                        <label>HubSpot Chat Code: </label><a href="~/file/HubspotGuide.pdf" target="_blank">HubSpot Guide</a>
+                        <input asp-for="@Model.ChatLink" class="form-control col-sm-3" placeholder="Enter Chat Code" type="text" value="@Model.ChatLink" />
+                        <span asp-validation-for="@Model.ChatLink" class=" text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
                         <input a asp-action="BusinessProfile" asp-controller="Business" type="submit" value="Update Profile" class="btn btn-warning" />
 
                     </div>
@@ -95,6 +116,6 @@
         </div>
     </div>
 </div>
-
-
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

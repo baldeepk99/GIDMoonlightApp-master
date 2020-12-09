@@ -7,13 +7,16 @@
 <div class="white-block">
     <div class="row">
         <div class="col-6  vertical-line">
-            <p>Service Details</p>
+            
+            <p>Service Details
+                <a class="btn btn-warning btn-sm float-right" asp-controller="Home" asp-action="JobSearch" >Back</a>
+            </p>
 
             <hr />
 
             @if (Model != null)
             {
-<h5>@Model.Jobs[0].JobName</h5>
+                <h5>@Model.Jobs[0].JobName</h5>
                 <p>
                     <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
                     <b>Company Location: </b> @Model.Jobs[0].Company.Address <br />
@@ -29,24 +32,24 @@
                             @Math.Round(@Model.GetRating((List<Reviews>)Model.Jobs[0].Reviews, Model.Jobs[0].JobId), 2, MidpointRounding.AwayFromZero) }
                         else
                         {
-                         <span>Not yet Rated</span> 
+                            <span>Not yet Rated</span>
                         }
-                     }
-                     else
-                     {
+                    }
+                    else
+                    {
                         <span> Not Rated</span>
-                        }
+                    }
                     <br />
                 </p>
-                   <hr class="bg-warning" />
-                            <a class="btn btn-outline-warning btn-sm" asp-controller="Home" asp-action="OrderService"
-                                                   asp-route-id="@Model.Jobs[0].JobId">Book Service</a>
-                    <a class="btn btn-outline-warning btn-sm" asp-controller="Home" asp-action="PostReview"
-                                                   asp-route-id="@Model.Jobs[0].JobId">Post Review</a>
+                <hr class="bg-warning" />
+                <a class="btn btn-outline-warning btn-sm" asp-controller="Home" asp-action="OrderService"
+                   asp-route-id="@Model.Jobs[0].JobId">Book Service</a>
+                <a class="btn btn-outline-warning btn-sm" asp-controller="Home" asp-action="PostReview"
+                   asp-route-id="@Model.Jobs[0].JobId">Post Review</a>
 
 
 
-                }
+            }
 
         </div>
        

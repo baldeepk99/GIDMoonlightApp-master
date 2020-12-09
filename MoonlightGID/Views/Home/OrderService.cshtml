@@ -31,7 +31,7 @@
                         <textarea asp-for="@Model.Service.Description" class="form-control " placeholder="Any other detail you need to provide?" value="@Model.Service.Description"></textarea>
                     </div>
 
-                    @*<div class="form-group">
+                    <div class="form-group">
                         <label>When do you need this Service (Time and Day)?</label>
                         <select asp-for="@Model.Service.DateOrder" class="form-control ">
                             @foreach (var avail in Model.ServiceAvailability)
@@ -40,28 +40,11 @@
                             }
                         </select>
 
-                    </div>*@
-
-                <div class="form-group">
-                    <label>When do you need this Service (Time and Day)?</label>
-                    <!-- Calendly inline widget begin -->
-                    <div class="calendly-inline-widget" data-url="@Model.Jobs[0].Company.CalendlyUrl" style="min-width:320px;height:650px;"></div>
-                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"></script>
-                    <button asp-action="BookService" asp-controller="Home" type="submit" value="Book Now" class="btn btn-warning" onclick="Calendly.showPopupWidget('www.google.com');return false;" />
-                    <!-- Calendly inline widget end -->
-                    <!-- Calendly link widget begin -->
-                    @*<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
-        <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript"></script>
-        <a href="" onclick="Calendly.initPopupWidget({url: '@Model.Jobs[0].Company.CalendlyUrl'});return false;">Schedule time with me</a>*@
-                    <!-- Calendly link widget end -->
-
-
-                </div>
-
+                    </div>
 
                     <div class="form-group">
 
-                        <input a asp-action="BookService" asp-controller="Home" type="submit" value="Book Now" class="btn btn-warning" />
+                        <input a asp-action="BookService" asp-controller="Home" type="submit" value="Proceed" class="btn btn-warning" />
 
                     </div>
                 </form>
@@ -78,21 +61,5 @@
     $("#bookCalendar").datepicker({
         minDate: new Date()
     });
-    {
-        event: "calendly.date_and_time_selected",
-            payload: { }
-    }
-    function isCalendlyEvent(e) {
-        return e.data.event &&
-            e.data.event.indexOf('calendly') === 0;
-    };
-
-    window.addEventListener(
-        'message',
-        function (e) {
-            if (isCalendlyEvent(e)) {
-                console.log(e.data);
-            }
-        }
-    );
+    
 </script>

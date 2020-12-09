@@ -41,9 +41,6 @@
         //// Getting Lat and Long coordinates location of device
         var slat, slong, dlat, dlong, userInfo;
 
-
-
-
         const success = (position) => {
             slat = position.coords.latitude;
             slong = position.coords.longitude;
@@ -71,12 +68,10 @@
                             L.latLng(dlat, dlong)
                         ]
                     }).addTo(map);
-
                 });
-
         }
+        // Getting current location from lat and long coords
         navigator.geolocation.getCurrentPosition(success, console.log);
-
     }
 
 </script>

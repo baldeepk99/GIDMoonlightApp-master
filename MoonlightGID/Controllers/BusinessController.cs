@@ -167,11 +167,23 @@ namespace MoonlightGID.Controllers
             obj.RegistrationDate = business.RegistrationDate;
             obj.OfficeHours = business.OfficeHours;
             obj.WorkingDays = business.WorkingDays;
+            obj.ChatLink = business.ChatLink;
 
-
-            int count = _context.SaveChanges();
-            if (count >= 1)
-                ViewBag.SuccessMessage = "Profile Updated Successfully!";
+            if (ModelState.IsValid)
+            {
+                int count = _context.SaveChanges();
+                if (count >= 1)
+                    ViewBag.SuccessMessage = "Profile Updated Successfully!";
+                else
+                {
+                    ViewBag.ErrorMessage = "Problem updating profile";
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Problem updating profile";
+            }
+            
             
 
             return View(business);

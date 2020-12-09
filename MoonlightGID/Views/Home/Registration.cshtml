@@ -13,65 +13,89 @@
             <form asp-action="Registration" asp-controller="Home">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group row">
-                    <input asp-for="@Model.FirstName" class="form-control col-sm-3" placeholder="First Name" />
-                    <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-
-                    <input asp-for="@Model.LastName" class="form-control col-sm-3" placeholder="Last Name" required />
-                    <span asp-validation-for="@Model.LastName" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-
-                    <input asp-for="@Model.Email" class="form-control col-sm-3" placeholder="Email Address" required />
-                    <span asp-validation-for="@Model.Email" class="text-danger"></span>
-
+                    <div class=" col-sm-4">
+                        <label>First Name: </label><br />
+                        <input asp-for="@Model.FirstName" class="form-control" placeholder="eg:(Blake)" required />
+                        <span asp-validation-for="@Model.FirstName" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>Last Name: </label><br />
+                        <input asp-for="@Model.LastName" class="form-control" placeholder="eg:(Sheldon)" required />
+                        <span asp-validation-for="@Model.LastName" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>Email Address: </label><br />
+                        <input asp-for="@Model.Email" type="email" class="form-control" placeholder="eg:(blakesheldon@gmail.com)" required />
+                        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <div class="form-group row">
-                    <input asp-for="@Model.ContactNumber" class="form-control col-sm-3" placeholder="Contact Number" />
-                    <span asp-validation-for="@Model.ContactNumber" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-
-                    <input asp-for="@Model.UserLogin" class="form-control col-sm-3" placeholder="Username" required />
-                    <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-
-                    <input asp-for="@Model.Password" type="password" class="form-control col-sm-3" placeholder="Password" required />
-                    <span asp-validation-for="@Model.Password" class="text-danger"></span>
-
+                    <div class=" col-sm-4">
+                        <label>Contact Number: </label><br />
+                        <input asp-for="@Model.ContactNumber" type="text" class="form-control" placeholder="eg:(123-456-7890)" required />
+                        <span asp-validation-for="@Model.ContactNumber" class="text-danger"></span>
+                        
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>UserName: </label><br />
+                        <input asp-for="@Model.UserLogin" class="form-control" placeholder="eg:(sheld_blake01)" required />
+                        <span asp-validation-for="@Model.UserLogin" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>Password: </label><br />
+                        <input asp-for="@Model.Password" type="password" class="form-control" placeholder="eg:(sTr0ng-pwd#2)" required />
+                        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+                    </div>
                 </div>
                 <div class="form-group row">
-
-                    <input asp-for="@Model.Address" class="form-control col-sm-3" placeholder="Address" required />
-                    <span asp-validation-for="@Model.Address" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-
-                    <input asp-for="@Model.City" class="form-control col-sm-3" placeholder="City" required />
-                    <span asp-validation-for="@Model.City" class="text-danger"></span>
-                    <span class="col-sm-1"></span>
-                    <input asp-for="@Model.PostalCode" class="form-control col-sm-3" placeholder="Postal Code" required />
-                    <span asp-validation-for="@Model.PostalCode" class=" text-danger"></span>
-
+                    <div class=" col-sm-4">
+                        <label>Address: </label><br />
+                        <input asp-for="@Model.Address" class="form-control" placeholder="eg:(225 Kennedy Road)" required />
+                        <span asp-validation-for="@Model.Address" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>City: </label><br />
+                        <input asp-for="@Model.City" class="form-control" placeholder="eg:(Toronto)" required />
+                        <span asp-validation-for="@Model.City" class="text-danger"></span>
+                    </div>
+                    <div class=" col-sm-4">
+                        <label>Postal Code: </label><br />
+                        <input asp-for="@Model.PostalCode" class="form-control" placeholder="eg:(L0G 8U1)" required />
+                        <span asp-validation-for="@Model.PostalCode" class=" text-danger"></span>
+                    </div>
                 </div>
 
                 <div class="form-group row">
+                    <div class=" col-sm-4">
+                        <label>Province: </label><br />
+                        <select asp-for="@Model.Province" class="form-control col-md-6" required >
+                            <option selected disabled>Select a Province</option>
+                            <option value="Alberta">Alberta</option>
+                            <option value="British Columbia">British Columbia</option>
+                            <option value="Manitoba">Manitoba</option>
+                            <option value="New Brunswick">New Brunswick</option>
+                            <option value="Newfoundland and Labrador">Newfoundland and Labrador</option>
+                            <option value="Northwest Territories">Northwest Territories</option>
+                            <option value="Nova Scotia">Nova Scotia</option>
+                            <option value="Nunavut">Nunavut</option>
+                            <option value="Ontario">Ontario</option>
+                            <option value="Prince Edward Island">Prince Edward Island</option>
+                            <option value="Quebec">Quebec</option>
+                            <option value="Saskatchewan">Saskatchewan</option>
+                            <option value="Yukon">Yukon</option>
+                        </select>
+                        <span asp-validation-for="@Model.Province" class="text-danger"></span>
+                        </div>
+                    </div>
 
-                    <input asp-for="@Model.Province" class="form-control col-sm-3" placeholder="Province" required />
-                    <span asp-validation-for="@Model.Province" class="text-danger"></span>
-                    <span class="col-sm-1 "></span>
-                    <label class="col-sm-3 text-right">Birth Date</label>
-                    <span class="col-sm-1 "></span>
-                    <input asp-for="@Model.BirthDate" class="form-control col-sm-3" placeholder="Birthday" />
-                    <span asp-validation-for="@Model.BirthDate" class="text-danger"></span>
-
-                </div>
-                
 
 
-                <div class="form-group">
-                    <input a asp-action="Registration" asp-controller="Home" type="submit" value="Create" class="btn btn-warning" />
+                    <div class="form-group">
+                        <input a asp-action="Registration" asp-controller="Home" type="submit" value="Create" class="btn btn-warning" />
 
-                </div>
-            </form>
+                    </div>
+</form>
         </div>
     </div>
 

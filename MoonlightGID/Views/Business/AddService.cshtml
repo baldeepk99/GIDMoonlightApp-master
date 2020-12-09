@@ -16,41 +16,41 @@
                     <div class="form-group row">
                         <label class="col-sm-4">Job Name</label>
                         <div class="col-sm-6">
-                            <input asp-for="@Model.JobName" class="form-control " placeholder="Job Name" value="@Model.JobName" />
+                            <input asp-for="@Model.JobName" class="form-control " placeholder="Job Name" required />
+                            <span asp-validation-for="@Model.JobName" class="text-danger"></span>
                         </div>
-                        <label asp-validation-for="@Model.JobName" class="text-danger col-sm-2"></label>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4">Job Type</label>
                         <div class="col-sm-6">
-                            <input asp-for="@Model.JobType" class="form-control " placeholder="Job Type" value="@Model.JobType" />
+                            <input asp-for="@Model.JobType" class="form-control " placeholder="Job Type" required />
+                            <span asp-validation-for="@Model.JobType" class="text-danger"></span>
                         </div>
-                        <label asp-validation-for="@Model.JobType" class="text-danger col-sm-2"></label>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4">Job Description</label>
                         <div class="col-sm-6">
-                            <input asp-for="@Model.Description" class="form-control " placeholder="Job Description" value="@Model.Description" />
+                            <input asp-for="@Model.Description" class="form-control " placeholder="Job Description" required />
+                            <span asp-validation-for="@Model.Description" class="text-danger"></span>
                         </div>
-                        <label asp-validation-for="@Model.Description" class="text-danger col-sm-2"></label>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4">Booking Charge</label>
                         <div class="col-sm-6">
-                            <input asp-for="@Model.BookingFee" class="form-control " placeholder="Booking Charge" value="@Model.BookingFee" />
+                            <input asp-for="@Model.BookingFee" class="form-control " placeholder="Booking Charge" required />
+                            <span asp-validation-for="@Model.BookingFee" class="text-danger"></span>
                         </div>
-                        <label asp-validation-for="@Model.BookingFee" class="text-danger col-sm-2"></label>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-4">Service Charge</label>
                         <div class="col-sm-6">
-                            <input asp-for="@Model.ServiceCharge" class="form-control " placeholder="Service Charge" value="@Model.ServiceCharge" />
+                            <input asp-for="@Model.ServiceCharge" class="form-control " placeholder="Service Charge" required />
+                            <span asp-validation-for="@Model.ServiceCharge" class="text-danger"></span>
                         </div>
-                        <label asp-validation-for="@Model.ServiceCharge" class="text-danger col-sm-2"></label>
                     </div>
 
 
@@ -66,6 +66,8 @@
 
 
 </div>
-
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 

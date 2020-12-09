@@ -127,13 +127,22 @@ namespace MoonlightGID.Controllers
             obj.City = customer.City;
             obj.PostalCode = customer.PostalCode;
             obj.Province = customer.Province;
-            obj.BirthDate = customer.BirthDate;
             obj.Password = customer.Password;
+            if (ModelState.IsValid)
+            {
+                int count = _context.SaveChanges();
+                if (count >= 1)
+                    ViewBag.SuccessMessage = "Profile Updated Successfully!";
+                else
+                {
+                    ViewBag.ErrorMessage = "Problem updating profile!";
+                }
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Problem updating profile!";
+            }
             
-
-            int count = _context.SaveChanges();
-            if (count >= 1)
-                ViewBag.SuccessMessage = "Profile Updated Successfully!";
            
 
             return View(customer);

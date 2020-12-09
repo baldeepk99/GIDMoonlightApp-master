@@ -109,3 +109,10 @@ body {
     background-color: rgba(0,0,0,0.8);
     color: #fff;
 }
+
+
+/* For HubSpot Code Input box in business registration */
+#hubSpotCodeBox{
+    display: none;
+    transition: 300ms ease-in-out;
+}
