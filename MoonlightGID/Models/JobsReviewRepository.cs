@@ -45,9 +45,5 @@ namespace MoonlightGID.Models
 
             return result;
         }
-
-       
-
-
     }
 }

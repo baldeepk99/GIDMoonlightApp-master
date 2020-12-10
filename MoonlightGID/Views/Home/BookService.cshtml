@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+
 @model JobsReviewRepository
 @{ ViewData["Title"] = "View Service";
     Layout = "_Layout"; }
@@ -7,11 +8,13 @@
 <div class="white-block">
     <div class="row">
         <div class="col-5  vertical-line">
+
             <p>Service Details</p>
             <hr />
 
             @if (Model != null)
             {
+
                 <h5>@Model.Jobs[0].JobName</h5>
                 <p>
                     <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
@@ -73,14 +76,9 @@
                     <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
                     <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
                 </form>
-
-
-
             </div>
         </div>
     </div>
-
-
 </div>
 
 

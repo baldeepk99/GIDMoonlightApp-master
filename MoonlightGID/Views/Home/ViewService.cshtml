@@ -6,16 +6,19 @@
 <br />
 <div class="white-block">
     <div class="row">
+
         <div class="col-6  vertical-line">
-            
-            <p>Service Details
-                <a class="btn btn-warning btn-sm float-right" asp-controller="Home" asp-action="JobSearch" >Back</a>
+
+            <p>
+                Service Details
+                <a class="btn btn-warning btn-sm float-right" asp-controller="Home" asp-action="JobSearch">Back</a>
             </p>
 
             <hr />
 
             @if (Model != null)
             {
+
                 <h5>@Model.Jobs[0].JobName</h5>
                 <p>
                     <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
@@ -52,11 +55,11 @@
             }
 
         </div>
-       
+
         <div class="col-6">
-            <p>Reviews</p><hr/>
+            <p>Reviews</p><hr />
             <div class="overflow-auto" style="max-width: 100%; max-height: 350px;">
-               
+
                 <ul class="list-group">
                     @if (@Model.Jobs[0].Reviews != null)
                     {
@@ -66,20 +69,20 @@
                                 <span class="text-wrap"> @review.ReviewContent</span>
                                 <i class="fa fa-star"></i><span class="font-weight-bold float-right">@review.Rating</span>
                             </li>
-                        } 
+                        }
                     }
                     else
                     {
                         <li class="list-group-item"> No reviews yet</li>
                     }
-                 </ul>
+                </ul>
             </div>
-
         </div>
     </div>
 
 
 </div>
+
 <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/@Model.Jobs[0].Company.ChatLink"></script>
 <!-- Start of HubSpot Embed Code BALDEEP-->
 @*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706185.js"></script>*@
@@ -87,3 +90,4 @@
 @*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706378.js"></script>*@
 <!-- Start of HubSpot Embed Code RAJWINDER-->
 @*<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8706360.js"></script>*@
+

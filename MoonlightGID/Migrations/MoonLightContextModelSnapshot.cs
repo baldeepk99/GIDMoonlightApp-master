@@ -29,9 +29,12 @@ namespace MoonlightGID.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+<<<<<<< HEAD
                     b.Property<string>("ChatLink")
                         .HasColumnType("nvarchar(max)");
 
+=======
+>>>>>>> 74d4904062cf7434e6bd5342866987f787d01a34
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -203,11 +206,16 @@ namespace MoonlightGID.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+<<<<<<< HEAD
                     b.Property<string>("DateOrder")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+=======
+                    b.Property<DateTime>("DateOrder")
+                        .HasColumnType("datetime2");
+>>>>>>> 74d4904062cf7434e6bd5342866987f787d01a34
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
@@ -215,11 +223,16 @@ namespace MoonlightGID.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+<<<<<<< HEAD
                     b.Property<string>("ServiceLocation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TimeDescription")
                         .HasColumnType("nvarchar(max)");
+=======
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+>>>>>>> 74d4904062cf7434e6bd5342866987f787d01a34
 
                     b.HasKey("ServiceId")
                         .HasName("PK__Services__C51BB00AA0F3198A");

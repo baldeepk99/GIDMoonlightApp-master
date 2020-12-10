@@ -17,8 +17,10 @@ namespace MoonlightGID.Models
         public string JobType { get; set; }
         public string Description { get; set; }
         public int CompanyId { get; set; }
+        // Input validation for Money(Booking Fee)
         [RegularExpression("\\d{0,8}(\\.\\d{0,2})?$", ErrorMessage = "Correct format : 34 or 34.44")]
         public string BookingFee { get; set; }
+        // Input validation for Money(Service Charge)
         [RegularExpression("\\d{0,8}(\\.\\d{0,2})?$", ErrorMessage = "Correct format : 34 or 34.44")]
         public string ServiceCharge { get; set; }
 

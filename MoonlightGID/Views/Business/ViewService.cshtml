@@ -12,7 +12,7 @@
 
             @if (Model != null)
             {
-<h5>@Model.Jobs[0].JobName</h5>
+                <h5>@Model.Jobs[0].JobName</h5>
                 <p>
                     <b>Service Provider: </b> @Model.Jobs[0].Company.CompanyName <br />
                     <b>Job Type: </b> <span class="text-wrap">@Model.Jobs[0].JobType</span> <br />
@@ -28,27 +28,27 @@
                             @Math.Round(@Model.GetRating((List<Reviews>)Model.Jobs[0].Reviews, Model.Jobs[0].JobId), 2, MidpointRounding.AwayFromZero) }
                         else
                         {
-                         <span>Not yet Rated</span> 
+                            <span>Not yet Rated</span>
                         }
-                     }
-                     else
-                     {
+                    }
+                    else
+                    {
                         <span> Not Rated</span>
-                        }
+                    }
                     <br />
                 </p>
-                  
 
 
 
-                }
+
+            }
 
         </div>
-        
+
         <div class="col-6">
-            <p>Reviews</p><hr/>
+            <p>Reviews</p><hr />
             <div class="overflow-auto" style="max-width: 100%; max-height: 350px;">
-               
+
                 <ul class="list-group">
                     @if (@Model.Jobs[0].Reviews != null)
                     {
@@ -58,13 +58,13 @@
                                 <span class="text-wrap"> @review.ReviewContent</span>
                                 <i class="fa fa-star"></i><span class="font-weight-bold float-right">@review.Rating</span>
                             </li>
-                        } 
+                        }
                     }
                     else
                     {
                         <li class="list-group-item"> No reviews yet</li>
                     }
-                 </ul>
+                </ul>
             </div>
 
         </div>

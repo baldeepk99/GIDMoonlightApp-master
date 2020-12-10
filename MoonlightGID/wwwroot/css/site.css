@@ -9,15 +9,35 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+<<<<<<< HEAD
 header {
     background-color: rgba(0,0,0,0.7);
     color: #fff;
+=======
+header{
+    opacity:0.9;
+    background:black;
+>>>>>>> 74d4904062cf7434e6bd5342866987f787d01a34
 }
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
 }
+.white-block{
+    width:90%;
+    margin:auto;
+    height:auto;
+    padding:25px;
+    border-radius:5px;
+    color:black;
+    opacity:0.9;
+    background:white;
+}
+.vertical-line {
+    border-right: 2px solid #ffc107;
+}
+
 
 .wrapper {
     width: 88%;

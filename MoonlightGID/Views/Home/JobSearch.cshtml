@@ -7,6 +7,7 @@
 <div class="white-block">
     <div class="row">
         <div class="col-lg-7 vertical-line">
+
             <p>Search for services</p>
             <form asp-action="JobSearch" asp-controller="Home">
                 <div class="row ">
@@ -14,7 +15,7 @@
                         <input name="desc" type="text" class="form-control" placeholder="Search by services" value="@ViewBag.SelectedCategory" />
                     </div>
                     <div class="col-sm-4">
-                        <input name="location" type="text" class="form-control" placeholder="Search by City"  value="@ViewBag.SelectedLocation"/>
+                        <input name="location" type="text" class="form-control" placeholder="Search by City" value="@ViewBag.SelectedLocation" />
                     </div>
                     <div class="col-sm-2">
                         <input type="submit" value="Search" class="btn btn-warning " />
@@ -24,66 +25,69 @@
             </form>
 
             <hr class="bg-warning" />
+            <<<<<<< HEAD
             <div class="overflow-auto p-2 flex-fill bd-highlight" style="max-width: 100%; max-height: 350px;">
                 @if (Model != null)
                 {
 
-                <table class="table table-hover table-responsive-lg" width="100%">
-                    <thead class="thead-dark">
-                        <tr>
-                            
-                            <th>
-                                Service Provider
-                            </th>
-                            <th>
-                                Service Name
-                            </th>
-                            <th>
-                                Rating
-                            </th>
-                            <th>
-                                View
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <table class="table table-hover table-responsive-lg" width="100%">
+                        <thead class="thead-dark">
+                            <tr>
 
-                @for (int i = 0; i < Model.Jobs.Count(); i++)
-                {
-                    <tr>
-                        
-                        <td>
-                            <p class="text-wrap">@Model.Jobs[i].Company.CompanyName</p>
-                        </td>
-                        <td>
-                            <p class="text-wrap">@Model.Jobs[i].Description</p>
-                        </td>
-                        <td>
-                            @if (@Model.Reviews != null)
+                                <th>
+                                    Service Provider
+                                </th>
+                                <th>
+                                    Service Name
+                                </th>
+                                <th>
+                                    Rating
+                                </th>
+                                <th>
+                                    View
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int i = 0; i < Model.Jobs.Count(); i++)
                             {
-                                if (Model.GetRating(Model.Reviews, Model.Jobs[i].JobId) != 0)
-                                {
-                                    @Math.Round(@Model.GetRating(Model.Reviews, Model.Jobs[i].JobId), 2, MidpointRounding.AwayFromZero) }
-                                else
-                                {
-                                    <span class="text-wrap">Not yet Rated</span> 
-                                }
-                              }
-                              else{
-                                <span class="text-wrap"> Not Rated</span>
-                               }
-                        </td>
-                        <td>
-                            <a class="btn btn-warning btn-sm" asp-controller="Home" asp-action="ViewService" asp-route-id="@Model.Jobs[i].JobId">View</a>
-                        </td>
-                    </tr>
-                }
+                                <tr>
+
+                                    <td>
+                                        <p class="text-wrap">@Model.Jobs[i].Company.CompanyName</p>
+                                    </td>
+                                    <td>
+                                        <p class="text-wrap">@Model.Jobs[i].Description</p>
+                                    </td>
+                                    <td>
+                                        @if (@Model.Reviews != null)
+                                        {
+                                            if (Model.GetRating(Model.Reviews, Model.Jobs[i].JobId) != 0)
+                                            {
+                                                @Math.Round(@Model.GetRating(Model.Reviews, Model.Jobs[i].JobId), 2, MidpointRounding.AwayFromZero) }
+                                            else
+                                            {
+                                                <span class="text-wrap">Not yet Rated</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="text-wrap"> Not Rated</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-warning btn-sm" asp-controller="Home" asp-action="ViewService" asp-route-id="@Model.Jobs[i].JobId">View</a>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
-              }
+                }
             </div>
         </div>
         @*<div class="col-1 vertical-line"> </div>*@
+
         <div class="col-lg-5">
             <p>Search by Categories /City</p>
             <hr />
@@ -94,11 +98,13 @@
                     <p class="text-wrap">Available Services</p><hr />
                     @foreach (var type in ViewBag.JobTypes)
                     {
-                    <form asp-action="JobSearch" asp-controller="Home">
-                        <input name="desc" type="hidden" value="@type" />
-                        <input type="submit" value="@type" class="btn btn-outline-warning btn-block text-wrap" />
-                    </form>
+
+                        <form asp-action="JobSearch" asp-controller="Home">
+                            <input name="desc" type="hidden" value="@type" />
+                            <input type="submit" value="@type" class="btn btn-outline-warning btn-block text-wrap" />
+                        </form>
                     }
+
                 </div>
 
 
@@ -111,7 +117,7 @@
                             <input name="location" type="hidden" value="@type" />
                             <input type="submit" value="@type" class="btn btn-outline-warning btn-block text-wrap" />
                         </form>
-                     }
+                    }
                 </div>
 
             </div>

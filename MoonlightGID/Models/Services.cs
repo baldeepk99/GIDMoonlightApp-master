@@ -18,6 +18,7 @@ namespace MoonlightGID.Models
         public string DateOrder { get; set; }
         public string ServiceLocation { get; set; }
 
+
         public virtual Customers Customer { get; set; }
         public virtual Jobs Job { get; set; }
     }

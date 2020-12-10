@@ -21,18 +21,19 @@
                                 <th>Service Name</th>
                                 <th>Date Ordered</th>
                                 <th>Total Payment</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model.CustomerServices)
                             {
-                            <tr>
-                                <td>@item.ServiceId</td>
-                                <td>@item.Job.Company.CompanyName</td>
-                                <td>@item.Job.JobName</td>
-                                <td>@item.DateOrder</td>
-                                <td>$@item.Price</td>
-                            </tr>
+                                <tr>
+                                    <td>@item.ServiceId</td>
+                                    <td>@item.Job.Company.CompanyName</td>
+                                    <td>@item.Job.JobName</td>
+                                    <td>@item.DateOrder</td>
+                                    <td>$@item.Price</td>
+                                </tr>
                             }
                         </tbody>
                     </table>
@@ -40,8 +41,8 @@
             }
 
         </div>
-      
-        
+
+
     </div>
 
 

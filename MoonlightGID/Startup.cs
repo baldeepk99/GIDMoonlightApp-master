@@ -25,12 +25,20 @@ namespace MoonlightGID
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+<<<<<<< HEAD
             //Connection String for connecting to database.
             //var conn = "Data Source=RHBL002\\SQLEXPRESS01;Initial Catalog=MoonLight;Integrated Security=True";
 
             // Connection String to connect the Azure Database
             var conn = "Data Source=getitdone2020.database.windows.net;Initial Catalog=MoonLight;User ID=git;Password=College2020;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
             
+=======
+           
+            //var conn = "Server=LAPTOP-N0HTAK58\\SQLEXPRESS;Database=MoonLight;Trusted_Connection=True;";
+
+            var conn = "Data Source=LAPTOP-N0HTAK58\\SQLEXPRESS;Initial Catalog=MoonLight;Integrated Security=True";
+
+>>>>>>> 74d4904062cf7434e6bd5342866987f787d01a34
             services.AddMemoryCache();
             services.AddSession(so =>
             {
